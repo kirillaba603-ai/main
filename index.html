@@ -21,7 +21,6 @@
             position: relative;
         }
 
-        /* Анимированный фон */
         body::before {
             content: '';
             position: fixed;
@@ -42,7 +41,6 @@
             50% { transform: scale(1.2) rotate(180deg); }
         }
 
-        /* Плавающие частицы */
         .particles {
             position: fixed;
             top: 0;
@@ -105,14 +103,8 @@
         }
 
         @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         header h1 {
@@ -145,14 +137,8 @@
         }
 
         @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: scale(0.95);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
         }
 
         .tab {
@@ -195,6 +181,78 @@
             box-shadow: 0 8px 24px rgba(102, 126, 234, 0.4);
         }
 
+        .reviews-section {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 20px;
+            padding: 24px;
+            margin-bottom: 28px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            animation: fadeIn 1s ease 0.4s both;
+        }
+
+        .reviews-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .reviews-header h3 {
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .stars {
+            color: #fbbf24;
+            font-size: 18px;
+        }
+
+        .review {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 12px;
+            border-left: 3px solid #4ade80;
+            animation: slideInLeft 0.6s ease both;
+        }
+
+        .review:nth-child(even) {
+            border-left-color: #667eea;
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
+        .review-author {
+            font-weight: 600;
+            font-size: 15px;
+        }
+
+        .review-time {
+            font-size: 12px;
+            opacity: 0.6;
+        }
+
+        .review-text {
+            font-size: 14px;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+
         .products {
             display: grid;
             gap: 20px;
@@ -218,14 +276,8 @@
         .product:nth-child(3) { animation-delay: 0.3s; }
 
         @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .product::before {
@@ -289,7 +341,6 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
             white-space: nowrap;
-            margin-left: 16px;
             animation: pulse 2s ease infinite;
         }
 
@@ -307,7 +358,6 @@
 
         .badge {
             display: inline-block;
-            background: linear-gradient(135deg, #ef4444, #dc2626);
             color: white;
             padding: 6px 14px;
             border-radius: 16px;
@@ -315,6 +365,7 @@
             font-weight: 700;
             margin-top: 12px;
             animation: wiggle 1s ease infinite;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
         }
 
         @keyframes wiggle {
@@ -322,7 +373,6 @@
             50% { transform: rotate(2deg); }
         }
 
-        /* Модальное окно */
         .payment-modal {
             position: fixed;
             top: 0;
@@ -354,14 +404,8 @@
         }
 
         @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .payment-header {
@@ -544,7 +588,6 @@
     </style>
 </head>
 <body>
-    <!-- Анимированные частицы -->
     <div class="particles" id="particles"></div>
 
     <div class="container">
@@ -556,6 +599,14 @@
         <div class="tabs">
             <button class="tab active" onclick="switchTab('cheats')">🔥 Читы</button>
             <button class="tab" onclick="switchTab('gold')">💰 Голда</button>
+        </div>
+
+        <div class="reviews-section" id="reviewsSection">
+            <div class="reviews-header">
+                <h3>⭐ Отзывы покупателей</h3>
+                <div class="stars">★★★★★</div>
+            </div>
+            <div id="reviewsContainer"></div>
         </div>
 
         <div id="products" class="products"></div>
@@ -638,7 +689,6 @@
         const tg = window.Telegram.WebApp;
         tg.expand();
 
-        // Создание частиц
         function createParticles() {
             const container = document.getElementById('particles');
             for (let i = 0; i < 15; i++) {
@@ -654,21 +704,90 @@
         }
         createParticles();
 
-        const icons = {
-            cheats: '🎮',
-            gold: '💰'
+        const reviews = {
+            cheats: [
+                { author: 'Максим', time: '2 часа назад', text: 'Чит работает отлично! Меня не банит уже 2 недели, все функции работают 👍' },
+                { author: 'Артём', time: '5 часов назад', text: 'Купил ВХ и скинченджер - всё супер! Работает без лагов, рекомендую 🔥' },
+                { author: 'Даниил', time: '1 день назад', text: 'Админ панель просто огонь! Наконец могу нормально играть, спасибо!' },
+                { author: 'Игорь', time: '1 день назад', text: 'Взял панель разраба - не ожидал такого! Голду себе выдаю сколько хочу 💎' },
+                { author: 'Владимир', time: '2 дня назад', text: 'Лучший магазин читов! Быстрая доставка, всё работает. Уже купил 3 раза' }
+            ],
+            gold: [
+                { author: 'Алексей', time: '1 час назад', text: 'Получил голду уже на свой аккаунт за 10 минут! Я в шоке! Всё реально работает! 🚀' },
+                { author: 'Никита', time: '3 часа назад', text: 'Купил 1000 голды - пришло моментально! Теперь все скины мои 💰' },
+                { author: 'Дмитрий', time: '6 часов назад', text: 'Думал развод, но нет! Голда реально зачислилась на аккаунт, советую!' },
+                { author: 'Сергей', time: '1 день назад', text: 'Заказал 3000 голды - пришло быстрее чем ожидал! Лучший сервис 🔥' },
+                { author: 'Андрей', time: '2 дня назад', text: 'Уже 5 раз покупаю голду здесь. Всегда быстро и без проблем! Рекомендую!' }
+            ]
+        };
+
+        const productIcons = {
+            cheat_1: '👁️',
+            cheat_2: '⚡',
+            cheat_3: '🚀',
+            gold_1: '🍓',
+            gold_2: '💎',
+            gold_3: '🔥'
         };
 
         const products = {
             cheats: [
-                {id: 'cheat_1', name: 'ВХ ЧЕРЕЗ СТЕНЫ - СКИНЧЕНДЖЕР', price: 150, desc: '🖤 Luno APK - приватный DLC для Android/PC<br>‼️ Не требует Root-прав<br>⚡️ Быстрые обновления'},
-                {id: 'cheat_2', name: 'АДМИН ПАНЕЛЬ + ВСЕ ФУНКЦИИ', price: 300, desc: '🖤 Полный доступ ко всем функциям<br>🔒 Максимальная безопасность<br>⚡️ Постоянная поддержка'},
-                {id: 'cheat_3', name: 'ПАНЕЛЬ РАЗРАБА + ВЫДАЧА ГОЛДЫ', price: 500, desc: '🖤 Максимальные возможности<br>💎 Выдача голды себе и друзьям<br>🔥 VIP функции'}
+                {
+                    id: 'cheat_1', 
+                    name: 'ВХ ЧЕРЕЗ СТЕНЫ - СКИНЧЕНДЖЕР', 
+                    price: 150,
+                    oldPrice: 375,
+                    desc: '🖤 Luno APK - приватный DLC для Android/PC<br>‼️ Не требует Root-прав<br>⚡️ Быстрые обновления',
+                    discount: 60
+                },
+                {
+                    id: 'cheat_2', 
+                    name: 'АДМИН ПАНЕЛЬ + ВСЕ ФУНКЦИИ', 
+                    price: 300,
+                    oldPrice: 750,
+                    desc: '🖤 Полный доступ ко всем функциям<br>🔒 Максимальная безопасность<br>⚡️ Постоянная поддержка',
+                    discount: 60
+                },
+                {
+                    id: 'cheat_3', 
+                    name: 'ПАНЕЛЬ РАЗРАБА + ВЫДАЧА ГОЛДЫ', 
+                    price: 500,
+                    oldPrice: 1250,
+                    desc: '🖤 Максимальные возможности<br>💎 Выдача голды себе и друзьям<br>🔥 VIP функции',
+                    discount: 60
+                }
             ],
             gold: [
-                {id: 'gold_1', name: '500 GOLD', price: 150, desc: '🍓 СКИДКА 60%!<br>💰 500 золотых монет<br>⚡️ Моментально'},
-                {id: 'gold_2', name: '1000 GOLD', price: 250, desc: '🍓 СКИДКА 60%!<br>💰 1000 золотых монет<br>⚡️ Моментально'},
-                {id: 'gold_3', name: '3000 GOLD', price: 399, desc: '🍓 СКИДКА 60%!<br>💎 3000 золотых монет<br>⚠️ Ограничено', limited: true}
+                {
+                    id: 'gold_1', 
+                    name: '500 GOLD', 
+                    price: 150,
+                    oldPrice: 375,
+                    desc: '🍓 СКИДКА 60%!<br>💰 500 золотых монет<br>⚡️ Моментально',
+                    discount: 60,
+                    badgeColor: '#ef4444',
+                    badgeText: '⚡ ОГРАНИЧЕНО'
+                },
+                {
+                    id: 'gold_2', 
+                    name: '1000 GOLD', 
+                    price: 250,
+                    oldPrice: 625,
+                    desc: '🍓 СКИДКА 60%!<br>💰 1000 золотых монет<br>⚡️ Моментально',
+                    discount: 60,
+                    badgeColor: '#f59e0b',
+                    badgeText: '🔥 ОГРАНИЧЕНО'
+                },
+                {
+                    id: 'gold_3', 
+                    name: '3000 GOLD', 
+                    price: 399,
+                    oldPrice: 997,
+                    desc: '🍓 СКИДКА 60%!<br>💎 3000 золотых монет<br>⚠️ Осталось мало',
+                    discount: 60,
+                    badgeColor: '#8b5cf6',
+                    badgeText: '💎 ОГРАНИЧЕНО'
+                }
             ]
         };
 
@@ -681,7 +800,27 @@
             currentTab = tab;
             document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
             event.target.classList.add('active');
+            renderReviews();
             renderProducts();
+        }
+
+        function renderReviews() {
+            const container = document.getElementById('reviewsContainer');
+            container.innerHTML = '';
+            
+            reviews[currentTab].forEach((review, index) => {
+                const div = document.createElement('div');
+                div.className = 'review';
+                div.style.animationDelay = (index * 0.1) + 's';
+                div.innerHTML = `
+                    <div class="review-header">
+                        <div class="review-author">👤 ${review.author}</div>
+                        <div class="review-time">${review.time}</div>
+                    </div>
+                    <div class="review-text">${review.text}</div>
+                `;
+                container.appendChild(div);
+            });
         }
 
         function renderProducts() {
@@ -691,14 +830,33 @@
             products[currentTab].forEach((product) => {
                 const div = document.createElement('div');
                 div.className = 'product';
+                
+                const oldPriceHTML = product.oldPrice 
+                    ? `<div style="text-decoration: line-through; opacity: 0.5; font-size: 16px; margin-right: 8px;">${product.oldPrice}₽</div>`
+                    : '';
+                
+                const discountBadge = product.discount 
+                    ? `<div style="background: linear-gradient(135deg, #ef4444, #dc2626); color: white; padding: 4px 10px; border-radius: 12px; font-size: 12px; font-weight: 700; margin-left: 8px;">-${product.discount}%</div>`
+                    : '';
+                
+                const limitedBadge = product.badgeColor 
+                    ? `<span class="badge" style="background: linear-gradient(135deg, ${product.badgeColor}, ${product.badgeColor}dd);">${product.badgeText}</span>`
+                    : '';
+                
                 div.innerHTML = `
-                    <div class="product-icon">${icons[currentTab]}</div>
+                    <div class="product-icon">${productIcons[product.id]}</div>
                     <div class="product-header">
                         <div class="product-title">${product.name}</div>
-                        <div class="product-price">${product.price}₽</div>
+                        <div style="display: flex; flex-direction: column; align-items: flex-end;">
+                            <div style="display: flex; align-items: center;">
+                                ${oldPriceHTML}
+                                ${discountBadge}
+                            </div>
+                            <div class="product-price">${product.price}₽</div>
+                        </div>
                     </div>
                     <div class="product-desc">${product.desc}</div>
-                    ${product.limited ? '<span class="badge">⚡ ОГРАНИЧЕНО</span>' : ''}
+                    ${limitedBadge}
                 `;
                 div.onclick = () => openPaymentModal(product);
                 container.appendChild(div);
@@ -805,6 +963,7 @@
         }
 
         tg.ready();
+        renderReviews();
         renderProducts();
     </script>
 </body>

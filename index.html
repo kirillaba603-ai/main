@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>💎 Luno Shop</title>
+    <title>💎 Lunost Shop</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
         * {
@@ -623,7 +623,7 @@
 
     <div class="container">
         <header>
-            <h1>💎 Luno Shop</h1>
+            <h1>💎 Lunost Shop</h1>
             <p class="subtitle">Приватные читы и голда для Standoff 2</p>
         </header>
 
@@ -761,15 +761,6 @@
             gold_3: '🔥'
         };
 
-               const productIcons = {
-            cheat_1: '👁️',
-            cheat_2: '⚡',
-            cheat_3: '🚀',
-            gold_1: '🍓',
-            gold_2: '💎',
-            gold_3: '🔥'
-        };
-
         const products = {
             cheats: [
                 {
@@ -778,8 +769,7 @@
                     price: 150,
                     oldPrice: 375,
                     desc: '🖤 Luno APK - приватный DLC для Android/PC<br>‼️ Не требует Root-прав<br>⚡️ Быстрые обновления',
-                    discount: 60,
-                    version: 'v0.35.2 / БЕЗ РУТ / ЛЮБЫЕ УСТРОЙСТВА'
+                    discount: 60
                 },
                 {
                     id: 'cheat_2', 
@@ -787,8 +777,7 @@
                     price: 300,
                     oldPrice: 750,
                     desc: '🖤 Полный доступ ко всем функциям<br>🔒 Максимальная безопасность<br>⚡️ Постоянная поддержка',
-                    discount: 60,
-                    version: 'v0.35.2 / БЕЗ РУТ / ЛЮБЫЕ УСТРОЙСТВА'
+                    discount: 60
                 },
                 {
                     id: 'cheat_3', 
@@ -796,8 +785,7 @@
                     price: 500,
                     oldPrice: 1250,
                     desc: '🖤 Максимальные возможности<br>💎 Выдача голды себе и друзьям<br>🔥 VIP функции',
-                    discount: 60,
-                    version: 'v0.35.2 / БЕЗ РУТ / ЛЮБЫЕ УСТРОЙСТВА'
+                    discount: 60
                 }
             ],
             gold: [
@@ -887,11 +875,6 @@
                     ? `<span class="badge" style="background: linear-gradient(135deg, ${product.badgeColor}, ${product.badgeColor}dd);">${product.badgeText}</span>`
                     : '';
                 
-                // Добавляем информацию о версии только для читов
-                const versionInfo = product.version 
-                    ? `<div style="margin-top: 16px; padding-top: 12px; border-top: 1px solid rgba(255, 255, 255, 0.1); font-size: 11px; opacity: 0.6; text-align: center; letter-spacing: 0.5px;">${product.version}</div>`
-                    : '';
-                
                 div.innerHTML = `
                     <div class="product-icon">${productIcons[product.id]}</div>
                     <div class="product-header">
@@ -906,7 +889,6 @@
                     </div>
                     <div class="product-desc">${product.desc}</div>
                     ${limitedBadge}
-                    ${versionInfo}
                 `;
                 div.onclick = () => openPaymentModal(product);
                 container.appendChild(div);

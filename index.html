@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>💎 Luno Shop</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <style>
         :root {
             --bg-primary: #0a0a1e;
@@ -15,15 +17,21 @@
             --border-color: rgba(255, 255, 255, 0.1);
             --gradient-1: #667eea;
             --gradient-2: #764ba2;
+            --shadow-soft: 0 8px 32px rgba(0, 0, 0, 0.2);
+            --shadow-medium: 0 12px 48px rgba(0, 0, 0, 0.3);
+            --shadow-strong: 0 20px 60px rgba(102, 126, 234, 0.4);
         }
 
         [data-theme="light"] {
             --bg-primary: #f0f2f5;
             --bg-secondary: #ffffff;
-            --bg-card: rgba(0, 0, 0, 0.05);
+            --bg-card: rgba(255, 255, 255, 0.9);
             --text-primary: #1a1a1a;
             --text-secondary: rgba(0, 0, 0, 0.7);
             --border-color: rgba(0, 0, 0, 0.1);
+            --shadow-soft: 0 4px 16px rgba(0, 0, 0, 0.08);
+            --shadow-medium: 0 8px 24px rgba(0, 0, 0, 0.12);
+            --shadow-strong: 0 12px 32px rgba(102, 126, 234, 0.15);
         }
 
         * {
@@ -34,7 +42,7 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
             background: var(--bg-primary);
             color: var(--text-primary);
             overflow-x: hidden;
@@ -82,18 +90,18 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            font-size: 24px;
             transition: all 0.3s;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            box-shadow: var(--shadow-soft);
         }
 
         .theme-toggle:hover {
             transform: scale(1.1);
-            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+            box-shadow: var(--shadow-medium);
         }
 
-        .theme-toggle:active {
-            transform: scale(0.95);
+        .theme-toggle ion-icon {
+            font-size: 24px;
+            color: var(--text-primary);
         }
 
         .particles {
@@ -120,7 +128,6 @@
             100% { transform: translateY(-100vh) translateX(100px); opacity: 0; }
         }
 
-        /* Конфетти */
         .confetti {
             position: fixed;
             width: 10px;
@@ -152,7 +159,7 @@
             background: linear-gradient(135deg, var(--gradient-1) 0%, var(--gradient-2) 100%);
             border-radius: 24px;
             margin-bottom: 16px;
-            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.4);
+            box-shadow: var(--shadow-strong);
             position: relative;
             overflow: hidden;
             animation: slideDown 0.8s ease;
@@ -177,6 +184,24 @@
         @keyframes slideDown {
             from { opacity: 0; transform: translateY(-30px); }
             to { opacity: 1; transform: translateY(0); }
+        }
+
+        .header-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 12px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header-icon ion-icon {
+            font-size: 36px;
+            color: white;
         }
 
         header h1 {
@@ -233,6 +258,11 @@
             animation: fadeIn 1s ease 0.3s both;
         }
 
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
         .badge-item {
             background: var(--bg-card);
             padding: 12px 8px;
@@ -241,17 +271,29 @@
             backdrop-filter: blur(10px);
             text-align: center;
             transition: all 0.3s;
+            cursor: pointer;
         }
 
         .badge-item:hover {
             border-color: #667eea;
             transform: translateY(-4px);
-            box-shadow: 0 8px 24px rgba(102, 126, 234, 0.3);
+            box-shadow: var(--shadow-medium);
         }
 
         .badge-icon {
-            font-size: 20px;
-            margin-bottom: 4px;
+            width: 32px;
+            height: 32px;
+            margin: 0 auto 6px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .badge-icon ion-icon {
+            font-size: 18px;
+            color: white;
         }
 
         .badge-text {
@@ -307,13 +349,28 @@
             gap: 8px;
         }
 
-        .trust-toggle {
-            font-size: 20px;
-            transition: transform 0.3s;
-            opacity: 0.7;
+        .trust-icon {
+            width: 28px;
+            height: 28px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .trust-toggle.active {
+        .trust-icon ion-icon {
+            font-size: 16px;
+            color: white;
+        }
+
+        .trust-toggle ion-icon {
+            font-size: 20px;
+            transition: transform 0.3s;
+            color: var(--text-primary);
+        }
+
+        .trust-toggle.active ion-icon {
             transform: rotate(180deg);
         }
 
@@ -356,10 +413,20 @@
             transform: translateX(4px);
         }
 
-        .trust-item::before {
-            content: '✅';
-            font-size: 16px;
+        .trust-item-icon {
+            width: 20px;
+            height: 20px;
+            background: linear-gradient(135deg, #4ade80, #22c55e);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             flex-shrink: 0;
+        }
+
+        .trust-item-icon ion-icon {
+            font-size: 12px;
+            color: white;
         }
 
         .toast-notification {
@@ -372,7 +439,7 @@
             padding: 16px 20px;
             min-width: 300px;
             max-width: 90%;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            box-shadow: var(--shadow-medium);
             border: 2px solid rgba(102, 126, 234, 0.3);
             z-index: 5000;
             transform: translateX(400px);
@@ -402,8 +469,12 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 20px;
             flex-shrink: 0;
+        }
+
+        .toast-avatar ion-icon {
+            font-size: 24px;
+            color: white;
         }
 
         .toast-content {
@@ -442,11 +513,6 @@
             animation: fadeIn 1s ease 0.2s both;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.95); }
-            to { opacity: 1; transform: scale(1); }
-        }
-
         .tab {
             flex: 1;
             padding: 14px 20px;
@@ -459,14 +525,21 @@
             cursor: pointer;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
-            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .tab ion-icon {
+            font-size: 20px;
         }
 
         .tab.active {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             transform: scale(1.05);
-            box-shadow: 0 8px 24px rgba(102, 126, 234, 0.4);
+            box-shadow: var(--shadow-medium);
         }
 
         .reviews-section {
@@ -485,6 +558,14 @@
         .reviews-header h3 {
             font-size: 18px;
             font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .reviews-header ion-icon {
+            font-size: 20px;
+            color: #fbbf24;
         }
 
         .stars {
@@ -496,10 +577,8 @@
             display: flex;
             gap: 16px;
             overflow-x: auto;
-            overflow-y: hidden;
             padding: 8px 4px 16px 4px;
             scroll-snap-type: x mandatory;
-            -webkit-overflow-scrolling: touch;
             scrollbar-width: none;
         }
 
@@ -516,7 +595,7 @@
             border: 2px solid var(--border-color);
             scroll-snap-align: start;
             backdrop-filter: blur(10px);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            box-shadow: var(--shadow-soft);
         }
 
         .review-header {
@@ -532,6 +611,14 @@
             background: linear-gradient(135deg, #667eea, #764ba2);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .review-author ion-icon {
+            font-size: 18px;
+            color: #667eea;
         }
 
         .review-time {
@@ -553,7 +640,6 @@
             line-height: 1.6;
             opacity: 0.9;
         }
-
         .products {
             display: grid;
             gap: 20px;
@@ -574,7 +660,7 @@
         .product:hover {
             transform: translateY(-8px);
             border-color: rgba(102, 126, 234, 0.5);
-            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.3);
+            box-shadow: var(--shadow-strong);
         }
 
         .urgency-timer {
@@ -585,13 +671,56 @@
             font-size: 12px;
             font-weight: 700;
             margin-bottom: 12px;
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
         }
 
-        .product-icon {
-            font-size: 56px;
-            text-align: center;
-            margin-bottom: 20px;
+        .urgency-timer ion-icon {
+            font-size: 16px;
+        }
+
+        .product-icon-wrapper {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            box-shadow: var(--shadow-medium);
+        }
+
+        .product-icon-wrapper ion-icon {
+            font-size: 48px;
+            color: white;
+            position: relative;
+            z-index: 1;
+        }
+
+        .icon-green {
+            background: linear-gradient(135deg, #4ade80, #22c55e);
+        }
+
+        .icon-purple {
+            background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+        }
+
+        .icon-pink {
+            background: linear-gradient(135deg, #ec4899, #be185d);
+        }
+
+        .icon-orange {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+        }
+
+        .icon-blue {
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+        }
+
+        .icon-red {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
         }
 
         .product-header {
@@ -642,6 +771,10 @@
             gap: 6px;
         }
 
+        .price-includes-title ion-icon {
+            font-size: 16px;
+        }
+
         .price-includes-list {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -655,10 +788,9 @@
             gap: 6px;
         }
 
-        .price-includes-item::before {
-            content: '✓';
+        .price-includes-item ion-icon {
+            font-size: 14px;
             color: #4ade80;
-            font-weight: 700;
         }
 
         .badge {
@@ -669,23 +801,30 @@
             font-size: 12px;
             font-weight: 700;
             margin-top: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            box-shadow: var(--shadow-soft);
         }
 
         .buy-btn {
-            display: inline-block;
-            padding: 12px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 14px 24px;
             background: linear-gradient(135deg, #4ade80, #22c55e);
-            border: 2px solid #4ade80;
-            border-radius: 12px;
+            border: none;
+            border-radius: 14px;
             color: white;
-            font-size: 15px;
+            font-size: 16px;
             font-weight: 700;
             cursor: pointer;
             transition: all 0.3s;
             margin-top: 16px;
-            text-align: center;
             width: 100%;
+            box-shadow: 0 4px 12px rgba(74, 222, 128, 0.3);
+        }
+
+        .buy-btn ion-icon {
+            font-size: 20px;
         }
 
         .buy-btn:hover {
@@ -697,7 +836,7 @@
             transform: scale(0.98);
         }
 
-        .payment-modal, .info-modal {
+        .payment-modal {
             position: fixed;
             top: 0;
             left: 0;
@@ -711,7 +850,7 @@
             padding: 20px;
         }
 
-        .payment-modal.active, .info-modal.active {
+        .payment-modal.active {
             display: block;
         }
 
@@ -722,6 +861,12 @@
             border-radius: 28px;
             padding: 32px;
             border: 2px solid rgba(102, 126, 234, 0.3);
+            box-shadow: var(--shadow-strong);
+        }
+
+        .payment-header {
+            text-align: center;
+            margin-bottom: 24px;
         }
 
         .payment-header h2 {
@@ -730,7 +875,6 @@
             background: linear-gradient(135deg, #667eea, #764ba2);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-align: center;
         }
 
         .price-summary {
@@ -766,6 +910,13 @@
             color: var(--text-primary);
             font-size: 17px;
             margin-bottom: 12px;
+            transition: all 0.3s;
+        }
+
+        .promo-input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 20px rgba(102, 126, 234, 0.3);
         }
 
         .payment-methods {
@@ -781,11 +932,31 @@
             border-radius: 16px;
             cursor: pointer;
             transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .payment-method-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .payment-method-icon ion-icon {
+            font-size: 24px;
+            color: white;
         }
 
         .payment-method.selected {
             border-color: #667eea;
             background: rgba(102, 126, 234, 0.2);
+            box-shadow: 0 0 30px rgba(102, 126, 234, 0.4);
         }
 
         .payment-details {
@@ -809,6 +980,19 @@
             font-size: 16px;
             cursor: pointer;
             color: white;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .payment-info:hover {
+            background: rgba(0, 0, 0, 0.6);
+            transform: scale(1.02);
+        }
+
+        .payment-info ion-icon {
+            font-size: 20px;
         }
 
         .btn {
@@ -822,6 +1006,20 @@
             font-weight: 800;
             cursor: pointer;
             margin-top: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+
+        .btn ion-icon {
+            font-size: 24px;
+        }
+
+        .btn:hover {
+            box-shadow: 0 10px 40px rgba(102, 126, 234, 0.5);
+            transform: translateY(-2px);
         }
 
         .btn-secondary {
@@ -832,12 +1030,16 @@
 <body data-theme="dark">
     <div class="particles" id="particles"></div>
 
-    <!-- Переключатель темы -->
-    <div class="theme-toggle" onclick="toggleTheme()" id="themeToggle">🌙</div>
+    <div class="theme-toggle" onclick="toggleTheme()" id="themeToggle">
+        <ion-icon name="moon"></ion-icon>
+    </div>
 
     <div class="container">
         <header>
-            <h1>💎 Luno Shop</h1>
+            <div class="header-icon">
+                <ion-icon name="diamond"></ion-icon>
+            </div>
+            <h1>Luno Shop</h1>
             <p class="subtitle">Приватные читы и голда для Standoff 2</p>
             
             <div class="stats-bar">
@@ -854,48 +1056,102 @@
 
         <div class="guarantee-badges">
             <div class="badge-item">
-                <div class="badge-icon">✅</div>
+                <div class="badge-icon">
+                    <ion-icon name="checkmark-circle"></ion-icon>
+                </div>
                 <div class="badge-text">Возврат средств</div>
             </div>
             <div class="badge-item">
-                <div class="badge-icon">🔒</div>
+                <div class="badge-icon">
+                    <ion-icon name="shield-checkmark"></ion-icon>
+                </div>
                 <div class="badge-text">Безопасная оплата</div>
             </div>
             <div class="badge-item">
-                <div class="badge-icon">⚡</div>
+                <div class="badge-icon">
+                    <ion-icon name="flash"></ion-icon>
+                </div>
                 <div class="badge-text">Доставка 15 мин</div>
             </div>
             <div class="badge-item">
-                <div class="badge-icon">📞</div>
+                <div class="badge-icon">
+                    <ion-icon name="headset"></ion-icon>
+                </div>
                 <div class="badge-text">Поддержка 24/7</div>
             </div>
         </div>
 
         <div class="trust-block">
             <div class="trust-header" onclick="toggleTrust()">
-                <div class="trust-title">💎 Почему нам доверяют</div>
-                <div class="trust-toggle" id="trustToggle">▼</div>
+                <div class="trust-title">
+                    <div class="trust-icon">
+                        <ion-icon name="diamond"></ion-icon>
+                    </div>
+                    Почему нам доверяют
+                </div>
+                <div class="trust-toggle" id="trustToggle">
+                    <ion-icon name="chevron-down"></ion-icon>
+                </div>
             </div>
             <div class="trust-content" id="trustContent">
                 <div class="trust-items">
-                    <div class="trust-item">С 2023 года</div>
-                    <div class="trust-item">2,800+ клиентов</div>
-                    <div class="trust-item">4.9★ рейтинг</div>
-                    <div class="trust-item">98% отзывов</div>
-                    <div class="trust-item">5000+ в канале</div>
-                    <div class="trust-item">Без банов</div>
+                    <div class="trust-item">
+                        <div class="trust-item-icon">
+                            <ion-icon name="checkmark"></ion-icon>
+                        </div>
+                        С 2023 года
+                    </div>
+                    <div class="trust-item">
+                        <div class="trust-item-icon">
+                            <ion-icon name="checkmark"></ion-icon>
+                        </div>
+                        2,800+ клиентов
+                    </div>
+                    <div class="trust-item">
+                        <div class="trust-item-icon">
+                            <ion-icon name="checkmark"></ion-icon>
+                        </div>
+                        4.9★ рейтинг
+                    </div>
+                    <div class="trust-item">
+                        <div class="trust-item-icon">
+                            <ion-icon name="checkmark"></ion-icon>
+                        </div>
+                        98% отзывов
+                    </div>
+                    <div class="trust-item">
+                        <div class="trust-item-icon">
+                            <ion-icon name="checkmark"></ion-icon>
+                        </div>
+                        5000+ в канале
+                    </div>
+                    <div class="trust-item">
+                        <div class="trust-item-icon">
+                            <ion-icon name="checkmark"></ion-icon>
+                        </div>
+                        Без банов
+                    </div>
                 </div>
             </div>
         </div>
 
         <div class="tabs">
-            <button class="tab active" onclick="switchTab('cheats')">🔥 Читы</button>
-            <button class="tab" onclick="switchTab('gold')">💰 Голда</button>
+            <button class="tab active" onclick="switchTab('cheats')">
+                <ion-icon name="code-slash"></ion-icon>
+                Читы
+            </button>
+            <button class="tab" onclick="switchTab('gold')">
+                <ion-icon name="cash"></ion-icon>
+                Голда
+            </button>
         </div>
 
         <div class="reviews-section">
             <div class="reviews-header">
-                <h3>⭐ Отзывы</h3>
+                <h3>
+                    <ion-icon name="star"></ion-icon>
+                    Отзывы
+                </h3>
                 <div class="stars">★★★★★</div>
             </div>
             <div class="reviews-container" id="reviewsContainer"></div>
@@ -907,7 +1163,10 @@
     <div id="paymentModal" class="payment-modal">
         <div class="payment-content">
             <div class="payment-header">
-                <h2>💳 Оплата заказа</h2>
+                <h2>
+                    <ion-icon name="card"></ion-icon>
+                    Оплата заказа
+                </h2>
                 <p id="selectedProductName"></p>
             </div>
 
@@ -927,53 +1186,77 @@
             </div>
 
             <div class="promo-section">
-                <input type="text" class="promo-input" id="promoInput" placeholder="🍓 Введите промокод (FREE10)">
-                <button class="btn btn-secondary" onclick="applyPromo()">✨ Применить промокод</button>
+                <input type="text" class="promo-input" id="promoInput" placeholder="Введите промокод (FREE10)">
+                <button class="btn btn-secondary" onclick="applyPromo()">
+                    <ion-icon name="gift"></ion-icon>
+                    Применить промокод
+                </button>
             </div>
 
             <div class="payment-methods">
                 <div class="payment-method" onclick="selectPayment('card')">
-                    <div>💳 <strong>Банковская карта</strong></div>
-                    <div style="font-size: 13px; opacity: 0.7; margin-top: 4px;">МИР, VISA, Mastercard</div>
+                    <div class="payment-method-icon">
+                        <ion-icon name="card"></ion-icon>
+                    </div>
+                    <div>
+                        <div style="font-weight: 700;">Банковская карта</div>
+                        <div style="font-size: 13px; opacity: 0.7; margin-top: 4px;">МИР, VISA, Mastercard</div>
+                    </div>
                 </div>
                 <div class="payment-method" onclick="selectPayment('yoomoney')">
-                    <div>💰 <strong>ЮMoney</strong></div>
-                    <div style="font-size: 13px; opacity: 0.7; margin-top: 4px;">Электронный кошелек</div>
+                    <div class="payment-method-icon">
+                        <ion-icon name="wallet"></ion-icon>
+                    </div>
+                    <div>
+                        <div style="font-weight: 700;">ЮMoney</div>
+                        <div style="font-size: 13px; opacity: 0.7; margin-top: 4px;">Электронный кошелек</div>
+                    </div>
                 </div>
                 <div class="payment-method" onclick="selectPayment('sbp')">
-                    <div>💨 <strong>СБП</strong></div>
-                    <div style="font-size: 13px; opacity: 0.7; margin-top: 4px;">Быстрый платеж без комиссии</div>
+                    <div class="payment-method-icon">
+                        <ion-icon name="flash"></ion-icon>
+                    </div>
+                    <div>
+                        <div style="font-weight: 700;">СБП</div>
+                        <div style="font-size: 13px; opacity: 0.7; margin-top: 4px;">Быстрый платеж без комиссии</div>
+                    </div>
                 </div>
             </div>
 
             <div id="cardDetails" class="payment-details">
-                <h3>💳 Реквизиты карты</h3>
+                <h3>Реквизиты карты</h3>
                 <div class="payment-info" onclick="copyText('2204120120046764')">
-                    2204 1201 2004 6764
-                    <div style="font-size: 11px; opacity: 0.6; margin-top: 4px;">👆 Нажмите для копирования</div>
+                    <span>2204 1201 2004 6764</span>
+                    <ion-icon name="copy"></ion-icon>
                 </div>
             </div>
 
             <div id="yoomoneyDetails" class="payment-details">
-                <h3>💰 ЮMoney кошелек</h3>
+                <h3>ЮMoney кошелек</h3>
                 <div class="payment-info" onclick="copyText('4100118918710456')">
-                    4100118918710456
-                    <div style="font-size: 11px; opacity: 0.6; margin-top: 4px;">👆 Нажмите для копирования</div>
+                    <span>4100118918710456</span>
+                    <ion-icon name="copy"></ion-icon>
                 </div>
             </div>
 
             <div id="sbpDetails" class="payment-details">
-                <h3>💨 СБП перевод</h3>
+                <h3>СБП перевод</h3>
                 <div class="payment-info" onclick="copyText('+79969428462')">
-                    +7 996 942 84 62
-                    <div style="font-size: 11px; opacity: 0.6; margin-top: 4px;">👆 Нажмите для копирования</div>
+                    <span>+7 996 942 84 62</span>
+                    <ion-icon name="copy"></ion-icon>
                 </div>
                 <p style="margin: 12px 0;"><strong>Получатель:</strong> Кривошапкин Николай Николаевич</p>
                 <p style="margin: 12px 0;"><strong>Банк:</strong> ЮMoney</p>
             </div>
 
-            <button class="btn" onclick="confirmPayment()">✅ Оплатил - Подтвердить</button>
-            <button class="btn btn-secondary" onclick="closePaymentModal()">❌ Отменить заказ</button>
+            <button class="btn" onclick="confirmPayment()">
+                <ion-icon name="checkmark-circle"></ion-icon>
+                Оплатил - Подтвердить
+            </button>
+            <button class="btn btn-secondary" onclick="closePaymentModal()">
+                <ion-icon name="close-circle"></ion-icon>
+                Отменить заказ
+            </button>
         </div>
     </div>
 
@@ -996,7 +1279,6 @@
         }
         createParticles();
 
-        // Переключение темы
         function toggleTheme() {
             const body = document.body;
             const toggle = document.getElementById('themeToggle');
@@ -1004,19 +1286,17 @@
             
             if (currentTheme === 'dark') {
                 body.setAttribute('data-theme', 'light');
-                toggle.textContent = '☀️';
+                toggle.innerHTML = '<ion-icon name="sunny"></ion-icon>';
             } else {
                 body.setAttribute('data-theme', 'dark');
-                toggle.textContent = '🌙';
+                toggle.innerHTML = '<ion-icon name="moon"></ion-icon>';
             }
             
-            // Вибрация
             if (navigator.vibrate) {
                 navigator.vibrate(50);
             }
         }
 
-        // Конфетти
         function createConfetti() {
             const colors = ['#667eea', '#764ba2', '#4ade80', '#fbbf24', '#ef4444', '#8b5cf6'];
             for (let i = 0; i < 100; i++) {
@@ -1052,11 +1332,11 @@
         animateCounter();
 
         const notifications = [
-            { name: 'Максим', product: 'ВХ ЧЕРЕЗ СТЕНЫ', time: 2, avatar: '👤' },
-            { name: 'Артём', product: '1000 GOLD', time: 5, avatar: '🎮' },
-            { name: 'Игорь', product: 'АДМИН ПАНЕЛЬ', time: 8, avatar: '⚡' },
-            { name: 'Кирилл', product: '500 GOLD', time: 12, avatar: '💎' },
-            { name: 'Никита', product: 'ПАНЕЛЬ РАЗРАБА', time: 15, avatar: '🚀' }
+            { name: 'Максим', product: 'ВХ ЧЕРЕЗ СТЕНЫ', time: 2, icon: 'person' },
+            { name: 'Артём', product: '1000 GOLD', time: 5, icon: 'game-controller' },
+            { name: 'Игорь', product: 'АДМИН ПАНЕЛЬ', time: 8, icon: 'flash' },
+            { name: 'Кирилл', product: '500 GOLD', time: 12, icon: 'diamond' },
+            { name: 'Никита', product: 'ПАНЕЛЬ РАЗРАБА', time: 15, icon: 'rocket' }
         ];
 
         let notifIndex = 0;
@@ -1066,7 +1346,9 @@
             const toast = document.createElement('div');
             toast.className = 'toast-notification';
             toast.innerHTML = `
-                <div class="toast-avatar">${notif.avatar}</div>
+                <div class="toast-avatar">
+                    <ion-icon name="${notif.icon}"></ion-icon>
+                </div>
                 <div class="toast-content">
                     <div class="toast-name">${notif.name}</div>
                     <div class="toast-product">Купил: ${notif.product}</div>
@@ -1110,55 +1392,45 @@
             ]
         };
 
-        const productIcons = {
-            cheat_1: '👁️', cheat_2: '⚡', cheat_3: '🚀',
-            gold_1: '🍓', gold_2: '💎', gold_3: '🔥'
-        };
-        const products = {
+        const productData = {
             cheats: [
-                {
-                    id: 'cheat_1', name: 'ВХ ЧЕРЕЗ СТЕНЫ - СКИНЧЕНДЖЕР', price: 150, oldPrice: 375,
-                    desc: '🖤 Luno APK - приватный DLC для Android/PC<br>‼️ Не требует Root-прав<br>⚡️ Быстрые обновления',
-                    discount: 60, version: 'v0.35.2 / БЕЗ РУТ / ЛЮБЫЕ УСТРОЙСТВА',
-                    urgency: '⏰ Осталось 2 часа по акции!',
-                    includes: ['Техподдержка 24/7', 'Обновления', 'Инструкция', 'Гарантия 7 дней']
+                { id: 'cheat_1', name: 'ВХ ЧЕРЕЗ СТЕНЫ - СКИНЧЕНДЖЕР', price: 150, oldPrice: 375,
+                  desc: 'Luno APK - приватный DLC для Android/PC<br>Не требует Root-прав<br>Быстрые обновления',
+                  discount: 60, version: 'v0.35.2 / БЕЗ РУТ / ЛЮБЫЕ УСТРОЙСТВА',
+                  urgency: 'Осталось 2 часа по акции!', icon: 'eye', iconColor: 'icon-green',
+                  includes: ['Техподдержка 24/7', 'Обновления', 'Инструкция', 'Гарантия 7 дней']
                 },
-                {
-                    id: 'cheat_2', name: 'АДМИН ПАНЕЛЬ + ВСЕ ФУНКЦИИ', price: 300, oldPrice: 750,
-                    desc: '🖤 Полный доступ ко всем функциям<br>🔒 Максимальная безопасность<br>⚡️ Постоянная поддержка',
-                    discount: 60, version: 'v0.35.2 / БЕЗ РУТ / ЛЮБЫЕ УСТРОЙСТВА',
-                    urgency: '🔥 14 человек смотрят сейчас',
-                    includes: ['Приоритетная поддержка', 'Обновления навсегда', 'VIP инструкция', 'Гарантия 14 дней']
+                { id: 'cheat_2', name: 'АДМИН ПАНЕЛЬ + ВСЕ ФУНКЦИИ', price: 300, oldPrice: 750,
+                  desc: 'Полный доступ ко всем функциям<br>Максимальная безопасность<br>Постоянная поддержка',
+                  discount: 60, version: 'v0.35.2 / БЕЗ РУТ / ЛЮБЫЕ УСТРОЙСТВА',
+                  urgency: '14 человек смотрят сейчас', icon: 'flash', iconColor: 'icon-purple',
+                  includes: ['Приоритетная поддержка', 'Обновления навсегда', 'VIP инструкция', 'Гарантия 14 дней']
                 },
-                {
-                    id: 'cheat_3', name: 'ПАНЕЛЬ РАЗРАБА + ВЫДАЧА ГОЛДЫ', price: 500, oldPrice: 1250,
-                    desc: '🖤 Максимальные возможности<br>💎 Выдача голды себе и друзьям<br>🔥 VIP функции',
-                    discount: 60, version: 'v0.35.2 / БЕЗ РУТ / ЛЮБЫЕ УСТРОЙСТВА',
-                    urgency: '⚠️ В наличии: 5 шт',
-                    includes: ['Premium поддержка', 'Все обновления', 'Секретные функции', 'Гарантия 30 дней']
+                { id: 'cheat_3', name: 'ПАНЕЛЬ РАЗРАБА + ВЫДАЧА ГОЛДЫ', price: 500, oldPrice: 1250,
+                  desc: 'Максимальные возможности<br>Выдача голды себе и друзьям<br>VIP функции',
+                  discount: 60, version: 'v0.35.2 / БЕЗ РУТ / ЛЮБЫЕ УСТРОЙСТВА',
+                  urgency: 'В наличии: 5 шт', icon: 'rocket', iconColor: 'icon-pink',
+                  includes: ['Premium поддержка', 'Все обновления', 'Секретные функции', 'Гарантия 30 дней']
                 }
             ],
             gold: [
-                {
-                    id: 'gold_1', name: '500 GOLD', price: 150, oldPrice: 375,
-                    desc: '🍓 СКИДКА 60%!<br>💰 500 золотых монет<br>⚡️ Моментально',
-                    discount: 60, badgeColor: '#ef4444', badgeText: '⚡ ОГРАНИЧЕНО',
-                    urgency: '⏰ Акция до: 23:59',
-                    includes: ['Моментальная доставка', 'Без банов', 'Гарантия зачисления', 'Поддержка 24/7']
+                { id: 'gold_1', name: '500 GOLD', price: 150, oldPrice: 375,
+                  desc: 'СКИДКА 60%!<br>500 золотых монет<br>Моментально',
+                  discount: 60, badgeColor: '#ef4444', badgeText: 'ОГРАНИЧЕНО',
+                  urgency: 'Акция до: 23:59', icon: 'diamond', iconColor: 'icon-orange',
+                  includes: ['Моментальная доставка', 'Без банов', 'Гарантия зачисления', 'Поддержка 24/7']
                 },
-                {
-                    id: 'gold_2', name: '1000 GOLD', price: 250, oldPrice: 625,
-                    desc: '🍓 СКИДКА 60%!<br>💰 1000 золотых монет<br>⚡️ Моментально',
-                    discount: 60, badgeColor: '#f59e0b', badgeText: '🔥 ОГРАНИЧЕНО',
-                    urgency: '⏰ Акция до: 23:59',
-                    includes: ['Моментальная доставка', 'Без банов', 'Гарантия зачисления', 'Поддержка 24/7']
+                { id: 'gold_2', name: '1000 GOLD', price: 250, oldPrice: 625,
+                  desc: 'СКИДКА 60%!<br>1000 золотых монет<br>Моментально',
+                  discount: 60, badgeColor: '#f59e0b', badgeText: 'ОГРАНИЧЕНО',
+                  urgency: 'Акция до: 23:59', icon: 'diamond', iconColor: 'icon-blue',
+                  includes: ['Моментальная доставка', 'Без банов', 'Гарантия зачисления', 'Поддержка 24/7']
                 },
-                {
-                    id: 'gold_3', name: '3000 GOLD', price: 399, oldPrice: 997,
-                    desc: '🍓 СКИДКА 60%!<br>💎 3000 золотых монет<br>⚠️ Осталось мало',
-                    discount: 60, badgeColor: '#8b5cf6', badgeText: '💎 ОГРАНИЧЕНО',
-                    urgency: '⏰ Акция до: 23:59',
-                    includes: ['Моментальная доставка', 'Без банов', 'Гарантия зачисления', 'Поддержка 24/7']
+                { id: 'gold_3', name: '3000 GOLD', price: 399, oldPrice: 997,
+                  desc: 'СКИДКА 60%!<br>3000 золотых монет<br>Осталось мало',
+                  discount: 60, badgeColor: '#8b5cf6', badgeText: 'ОГРАНИЧЕНО',
+                  urgency: 'Акция до: 23:59', icon: 'diamond', iconColor: 'icon-red',
+                  includes: ['Моментальная доставка', 'Без банов', 'Гарантия зачисления', 'Поддержка 24/7']
                 }
             ]
         };
@@ -1180,13 +1452,15 @@
             const container = document.getElementById('reviewsContainer');
             container.innerHTML = '';
             
-            reviews[currentTab].forEach((review, index) => {
+            reviews[currentTab].forEach((review) => {
                 const div = document.createElement('div');
                 div.className = 'review';
-                div.style.animationDelay = (index * 0.1) + 's';
                 div.innerHTML = `
                     <div class="review-header">
-                        <div class="review-author">👤 ${review.author}</div>
+                        <div class="review-author">
+                            <ion-icon name="person-circle"></ion-icon>
+                            ${review.author}
+                        </div>
                         <div class="review-time">${review.time}</div>
                     </div>
                     <div class="review-stars">★★★★★</div>
@@ -1200,7 +1474,7 @@
             const container = document.getElementById('products');
             container.innerHTML = '';
 
-            products[currentTab].forEach((product) => {
+            productData[currentTab].forEach((product) => {
                 const div = document.createElement('div');
                 div.className = 'product';
                 
@@ -1217,27 +1491,35 @@
                     : '';
                 
                 const versionInfo = product.version 
-                    ? `<div style="margin-top: 16px; padding-top: 12px; border-top: 1px solid rgba(255, 255, 255, 0.1); font-size: 11px; opacity: 0.6; text-align: center; letter-spacing: 0.5px;">${product.version}</div>`
+                    ? `<div style="margin-top: 16px; padding-top: 12px; border-top: 1px solid rgba(255, 255, 255, 0.1); font-size: 11px; opacity: 0.6; text-align: center;">${product.version}</div>`
                     : '';
 
                 const urgencyTimer = product.urgency 
-                    ? `<div class="urgency-timer">${product.urgency}</div>`
+                    ? `<div class="urgency-timer"><ion-icon name="time"></ion-icon>${product.urgency}</div>`
                     : '';
 
                 const priceIncludes = product.includes 
                     ? `<div class="price-includes">
-                        <div class="price-includes-title">💎 Что входит в цену:</div>
+                        <div class="price-includes-title">
+                            <ion-icon name="diamond"></ion-icon>
+                            Что входит в цену:
+                        </div>
                         <div class="price-includes-list">
-                            ${product.includes.map(item => `<div class="price-includes-item">${item}</div>`).join('')}
+                            ${product.includes.map(item => 
+                                `<div class="price-includes-item">
+                                    <ion-icon name="checkmark-circle"></ion-icon>
+                                    ${item}
+                                </div>`
+                            ).join('')}
                         </div>
                     </div>`
                     : '';
-
-                const buyButton = `<div class="buy-btn" onclick="event.stopPropagation(); handleBuyClick(this, '${product.id}')">🛒 Купить сейчас</div>`;
                 
                 div.innerHTML = `
                     ${urgencyTimer}
-                    <div class="product-icon">${productIcons[product.id]}</div>
+                    <div class="product-icon-wrapper ${product.iconColor}">
+                        <ion-icon name="${product.icon}"></ion-icon>
+                    </div>
                     <div class="product-header">
                         <div class="product-title">${product.name}</div>
                         <div style="display: flex; flex-direction: column; align-items: flex-end;">
@@ -1251,7 +1533,10 @@
                     <div class="product-desc">${product.desc}</div>
                     ${limitedBadge}
                     ${priceIncludes}
-                    ${buyButton}
+                    <button class="buy-btn" onclick="event.stopPropagation(); handleBuyClick(this, '${product.id}')">
+                        <ion-icon name="cart"></ion-icon>
+                        Купить сейчас
+                    </button>
                     ${versionInfo}
                 `;
                 div.onclick = () => handleProductClick(product);
@@ -1259,28 +1544,23 @@
             });
         }
 
-        // Обработка клика на кнопку "Купить" с вибрацией
         function handleBuyClick(button, productId) {
-            // Вибрация
             if (navigator.vibrate) {
                 navigator.vibrate([50, 30, 50]);
             }
             
-            // Анимация кнопки
             button.style.transform = 'scale(0.95)';
             setTimeout(() => {
                 button.style.transform = 'scale(1)';
             }, 100);
             
-            // Открываем модальное окно
-            const product = products[currentTab].find(p => p.id === productId);
+            const product = productData[currentTab].find(p => p.id === productId);
             if (product) {
                 openPaymentModal(product);
             }
         }
 
         function handleProductClick(product) {
-            // Вибрация при клике на карточку
             if (navigator.vibrate) {
                 navigator.vibrate(30);
             }
@@ -1311,7 +1591,6 @@
         function selectPayment(method) {
             currentPaymentMethod = method;
             
-            // Вибрация при выборе способа оплаты
             if (navigator.vibrate) {
                 navigator.vibrate(30);
             }
@@ -1336,7 +1615,6 @@
                 document.getElementById('discountAmount').textContent = '-' + discount + '₽';
                 document.getElementById('finalPrice').textContent = finalPrice + '₽';
                 
-                // Вибрация успеха
                 if (navigator.vibrate) {
                     navigator.vibrate([50, 50, 50]);
                 }
@@ -1347,7 +1625,6 @@
                     buttons: [{type: 'ok'}]
                 });
             } else {
-                // Вибрация ошибки
                 if (navigator.vibrate) {
                     navigator.vibrate([100, 50, 100]);
                 }
@@ -1361,7 +1638,6 @@
         }
 
         function copyText(text) {
-            // Вибрация при копировании
             if (navigator.vibrate) {
                 navigator.vibrate(30);
             }
@@ -1385,7 +1661,6 @@
 
         function confirmPayment() {
             if (!currentPaymentMethod) {
-                // Вибрация ошибки
                 if (navigator.vibrate) {
                     navigator.vibrate([100, 50, 100]);
                 }
@@ -1397,10 +1672,8 @@
                 ? selectedProduct.price - Math.round(selectedProduct.price * appliedPromo.discount / 100)
                 : selectedProduct.price;
             
-            // Запуск конфетти при успешной оплате
             createConfetti();
             
-            // Мощная вибрация успеха
             if (navigator.vibrate) {
                 navigator.vibrate([100, 50, 100, 50, 200]);
             }
@@ -1416,7 +1689,6 @@
                 username: tg.initDataUnsafe?.user?.username || 'unknown'
             }));
             
-            // Задержка перед закрытием чтобы показать конфетти
             setTimeout(() => {
                 tg.close();
             }, 1500);

@@ -182,11 +182,7 @@
         }
 
         .reviews-section {
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 20px;
-            padding: 24px;
             margin-bottom: 28px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
             animation: fadeIn 1s ease 0.4s both;
         }
 
@@ -194,7 +190,8 @@
             display: flex;
             align-items: center;
             gap: 12px;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
+            padding: 0 4px;
         }
 
         .reviews-header h3 {
@@ -207,23 +204,44 @@
             font-size: 18px;
         }
 
+        .reviews-container {
+            display: flex;
+            gap: 16px;
+            overflow-x: auto;
+            overflow-y: hidden;
+            padding: 8px 4px 16px 4px;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+
+        .reviews-container::-webkit-scrollbar {
+            display: none;
+        }
+
         .review {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 16px;
-            padding: 16px;
-            margin-bottom: 12px;
-            border-left: 3px solid #4ade80;
-            animation: slideInLeft 0.6s ease both;
+            min-width: 280px;
+            max-width: 280px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.04));
+            border-radius: 20px;
+            padding: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            scroll-snap-align: start;
+            animation: slideInRight 0.6s ease both;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
         }
 
-        .review:nth-child(even) {
-            border-left-color: #667eea;
-        }
+        .review:nth-child(1) { animation-delay: 0.1s; }
+        .review:nth-child(2) { animation-delay: 0.2s; }
+        .review:nth-child(3) { animation-delay: 0.3s; }
+        .review:nth-child(4) { animation-delay: 0.4s; }
+        .review:nth-child(5) { animation-delay: 0.5s; }
 
-        @keyframes slideInLeft {
+        @keyframes slideInRight {
             from {
                 opacity: 0;
-                transform: translateX(-30px);
+                transform: translateX(50px);
             }
             to {
                 opacity: 1;
@@ -234,17 +252,30 @@
         .review-header {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 8px;
+            margin-bottom: 12px;
+            align-items: center;
         }
 
         .review-author {
-            font-weight: 600;
+            font-weight: 700;
             font-size: 15px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .review-time {
-            font-size: 12px;
+            font-size: 11px;
             opacity: 0.6;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 4px 8px;
+            border-radius: 8px;
+        }
+
+        .review-stars {
+            color: #fbbf24;
+            font-size: 14px;
+            margin-bottom: 8px;
         }
 
         .review-text {
@@ -601,12 +632,12 @@
             <button class="tab" onclick="switchTab('gold')">💰 Голда</button>
         </div>
 
-        <div class="reviews-section" id="reviewsSection">
+        <div class="reviews-section">
             <div class="reviews-header">
-                <h3>⭐ Отзывы покупателей</h3>
+                <h3>⭐ Отзывы</h3>
                 <div class="stars">★★★★★</div>
             </div>
-            <div id="reviewsContainer"></div>
+            <div class="reviews-container" id="reviewsContainer"></div>
         </div>
 
         <div id="products" class="products"></div>
@@ -817,6 +848,7 @@
                         <div class="review-author">👤 ${review.author}</div>
                         <div class="review-time">${review.time}</div>
                     </div>
+                    <div class="review-stars">★★★★★</div>
                     <div class="review-text">${review.text}</div>
                 `;
                 container.appendChild(div);

@@ -382,23 +382,28 @@ function renderProducts() {
     const container = document.getElementById('products');
     container.innerHTML = '';
 
-    // Ссылки на фото с GitHub
-    const images = {
-        cheats: 'https://raw.githubusercontent.com/kirillaba603-ai/main/main/photo_2025-10-02_00-49-38.jpg',
-        gold: 'https://raw.githubusercontent.com/kirillaba603-ai/main/main/photo_2025-10-02_00-49-55.jpg'
+    // Иконки для категорий
+    const icons = {
+        cheats: '🎮',
+        gold: '💰'
     };
 
     products[currentTab].forEach((product) => {
         const div = document.createElement('div');
         div.className = 'product';
-        
-        // Добавляем изображение для каждой карточки
-        const img = document.createElement('img');
-        img.src = images[currentTab];
-        img.style.cssText = 'width:100%; height:180px; object-fit:cover; border-radius:12px; margin-bottom:16px;';
-        img.onerror = function() {
-            this.style.display = 'none'; // Скрываем если не загрузилось
-        };
+        div.innerHTML = `
+            <div style="font-size: 48px; text-align: center; margin-bottom: 16px;">${icons[currentTab]}</div>
+            <div class="product-header">
+                <div class="product-title">${product.name}</div>
+                <div class="product-price">${product.price}₽</div>
+            </div>
+            <div class="product-desc">${product.desc}</div>
+            ${product.limited ? '<span class="badge">ОГРАНИЧЕНО</span>' : ''}
+        `;
+        div.onclick = () => openPaymentModal(product);
+        container.appendChild(div);
+    });
+}
         
         div.appendChild(img);
         

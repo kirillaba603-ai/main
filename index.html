@@ -1987,6 +1987,25 @@
                     message: 'Скидка 10% активирована. Экономия: ' + discount + '₽',
                     buttons: [{type: 'ok'}]
                 });
+            } else if (promoCode === 'REF20') {
+                const discount = Math.round(selectedProduct.price * 0.2);
+                const finalPrice = selectedProduct.price - discount;
+
+                appliedPromo = {code: promoCode, discount: 20};
+
+                document.getElementById('discountRow').style.display = 'flex';
+                document.getElementById('discountAmount').textContent = '-' + discount + '₽';
+                document.getElementById('finalPrice').textContent = finalPrice + '₽';
+
+                if (navigator.vibrate) {
+                    navigator.vibrate([70, 70, 70]);
+                }
+
+                tg.showPopup({
+                    title: '🎉 Промокод применён!',
+                    message: 'Скидка 20% активирована. Экономия: ' + discount + '₽',
+                    buttons: [{type: 'ok'}]
+                });
             } else {
                 if (navigator.vibrate) {
                     navigator.vibrate([100, 50, 100]);

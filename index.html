@@ -1630,13 +1630,14 @@ html[data-theme="light"] #payment-loader { background: rgba(10,12,20,.35); }
                     </div>
                 </div>
             </div>
-                       <div id="cardDetails" class="payment-details">
+
+            <div id="cardDetails" class="payment-details">
                 <h3 style="margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
                     <ion-icon name="card"></ion-icon>
                     Реквизиты карты
                 </h3>
-                <div class="payment-info" onclick="copyText('2204120131244374')">
-                    <span>2204120131244374</span>
+                <div class="payment-info" onclick="copyText('2204120131475176')">
+                    <span>447901639476</span>
                     <ion-icon name="copy"></ion-icon>
                 </div>
                 <p style="margin: 12px 0; opacity: 0.7; font-size: 13px;">💡 Нажмите на номер карты, чтобы скопировать</p>
@@ -1647,8 +1648,8 @@ html[data-theme="light"] #payment-loader { background: rgba(10,12,20,.35); }
                     <ion-icon name="wallet"></ion-icon>
                     ЮMoney кошелек
                 </h3>
-                <div class="payment-info" onclick="copyText('4100119367200952')">
-                    <span>4100119367200952</span>
+                <div class="payment-info" onclick="copyText('4100119365689595')">
+                    <span>4100119365689595</span>
                     <ion-icon name="copy"></ion-icon>
                 </div>
                 <p style="margin: 12px 0; opacity: 0.7; font-size: 13px;">💡 Нажмите на номер кошелька, чтобы скопировать</p>
@@ -1659,15 +1660,14 @@ html[data-theme="light"] #payment-loader { background: rgba(10,12,20,.35); }
                     <ion-icon name="flash"></ion-icon>
                     СБП перевод
                 </h3>
-                <div class="payment-info" onclick="copyText('447901639476')">
-                    <span>447901639476</span>
+                <div class="payment-info" onclick="copyText('447899917112')">
+                    <span>447899917112</span>
                     <ion-icon name="copy"></ion-icon>
                 </div>
                 <p style="margin: 16px 0 8px 0;"><strong>Получатель:</strong> Тамерлан Викторович В.</p>
                 <p style="margin: 8px 0;"><strong>Банк:</strong> ЮMoney</p>
                 <p style="margin: 12px 0 0 0; opacity: 0.7; font-size: 13px;">💡 Нажмите на номер телефона, чтобы скопировать</p>
             </div>
-
 
             <button class="btn" onclick="confirmPayment()">
                 <ion-icon name="checkmark-circle"></ion-icon>
@@ -1821,13 +1821,13 @@ html[data-theme="light"] #payment-loader { background: rgba(10,12,20,.35); }
 
         const productData = {
             cheats: [
-                { id: 'cheat_1', name: 'ВХ ЧЕРЕЗ СТЕНЫ - СКИНЧЕНДЖЕР', price: 150, oldPrice: 375,
+                { id: 'cheat_1', name: 'ВХ ЧЕРЕЗ СТЕНЫ - СКИНЧЕНДЖЕР', price: 250, oldPrice: 625,
                   desc: 'Luno APK - приватный DLC для Android/PC<br>Не требует Root-прав<br>Быстрые обновления при патчах',
                   discount: 60, version: 'v0.35.2 / БЕЗ РУТ / ЛЮБЫЕ УСТРОЙСТВА',
                   urgency: 'Осталось 2 часа по акции!', icon: 'eye', iconColor: 'icon-green',
                   includes: ['Техподдержка 24/7', 'Обновления', 'Подробная инструкция', 'Гарантия 7 дней']
                 },
-                { id: 'cheat_2', name: 'АДМИН ПАНЕЛЬ + ВСЕ ФУНКЦИИ', price: 300, oldPrice: 750,
+                { id: 'cheat_2', name: 'АДМИН ПАНЕЛЬ + ВСЕ ФУНКЦИИ', price: 350, oldPrice: 875,
                   desc: 'Полный доступ ко всем функциям<br>Максимальная безопасность<br>Постоянная поддержка разрабов',
                   discount: 60, version: 'v0.35.2 / БЕЗ РУТ / ЛЮБЫЕ УСТРОЙСТВА',
                   urgency: '14 человек смотрят сейчас', icon: 'flash', iconColor: 'icon-purple',
@@ -1841,19 +1841,19 @@ html[data-theme="light"] #payment-loader { background: rgba(10,12,20,.35); }
                 }
             ],
             gold: [
-                { id: 'gold_1', name: '500 GOLD', price: 150, oldPrice: 375,
+                { id: 'gold_1', name: '500 GOLD', price: 250, oldPrice: 625,
                   desc: 'СКИДКА 60%! Акция ограничена<br>500 золотых монет на аккаунт<br>Моментальное зачисление',
                   discount: 60, badgeColor: '#ef4444', badgeText: '⚡ ОГРАНИЧЕНО',
                   urgency: 'Акция до: 23:59', icon: 'diamond', iconColor: 'icon-orange',
                   includes: ['Моментальная доставка', 'Без банов аккаунта', 'Гарантия зачисления', 'Поддержка 24/7']
                 },
-                { id: 'gold_2', name: '1000 GOLD', price: 250, oldPrice: 625,
+                { id: 'gold_2', name: '1000 GOLD', price: 350, oldPrice: 875,
                   desc: 'СКИДКА 60%! Самый популярный<br>1000 золотых монет на аккаунт<br>Быстрое зачисление за 5-15 мин',
                   discount: 60, badgeColor: '#f59e0b', badgeText: '🔥 ПОПУЛЯРНЫЙ',
                   urgency: 'Акция до: 23:59', icon: 'diamond', iconColor: 'icon-blue',
                   includes: ['Моментальная доставка', 'Без банов аккаунта', 'Гарантия зачисления', 'Поддержка 24/7']
                 },
-                { id: 'gold_3', name: '3000 GOLD', price: 399, oldPrice: 997,
+                { id: 'gold_3', name: '3000 GOLD', price: 425, oldPrice: 1062,
                   desc: 'СКИДКА 60%! Максимальная выгода<br>3000 золотых монет на аккаунт<br>Хватит надолго, осталось мало',
                   discount: 60, badgeColor: '#8b5cf6', badgeText: '💎 ВЫГОДНО',
                   urgency: 'Акция до: 23:59', icon: 'diamond', iconColor: 'icon-red',

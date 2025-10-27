@@ -11,33 +11,39 @@
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
         
         :root {
-            --bg-primary: #0a0a1e;
-            --bg-secondary: #1a1a2e;
+            --bg-primary: #0E0E10;
+            --bg-secondary: #1A1A1C;
             --bg-card: rgba(255, 255, 255, 0.06);
-            --text-primary: #ffffff;
-            --text-secondary: rgba(255, 255, 255, 0.8);
+            --text-primary: #FFFFFF;
+            --text-secondary: #B5B5B5;
             --border-color: rgba(255, 255, 255, 0.08);
-            --gradient-1: #667eea;
-            --gradient-2: #764ba2;
-            --gradient-3: #4facfe;
-            --gradient-4: #00f2fe;
-            --shadow-soft: 0 8px 32px rgba(0, 0, 0, 0.3);
-            --shadow-medium: 0 12px 48px rgba(0, 0, 0, 0.4);
-            --shadow-strong: 0 20px 60px rgba(102, 126, 234, 0.5);
-            --border-radius: 20px;
-            --border-radius-lg: 28px;
+            --accent-purple: #7B3EEB;
+            --accent-lime: #BFFF4D;
+            --gradient-main: linear-gradient(135deg, #7B3EEB, #BFFF4D);
+            --gradient-glow: linear-gradient(135deg, rgba(123, 62, 235, 0.15), rgba(191, 255, 77, 0.15));
+            --shadow-soft: 0 4px 30px rgba(0, 0, 0, 0.2);
+            --shadow-medium: 0 8px 40px rgba(0, 0, 0, 0.3);
+            --shadow-strong: 0 12px 50px rgba(123, 62, 235, 0.25);
+            --shadow-glow: 0 0 20px rgba(123, 62, 235, 0.2);
+            --border-radius: 16px;
+            --border-radius-lg: 24px;
         }
 
         [data-theme="light"] {
-            --bg-primary: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            --bg-secondary: rgba(255, 255, 255, 0.95);
-            --bg-card: rgba(255, 255, 255, 0.8);
-            --text-primary: #2d3748;
-            --text-secondary: rgba(45, 55, 72, 0.8);
+            --bg-primary: #F8F8FA;
+            --bg-secondary: #FFFFFF;
+            --bg-card: rgba(0, 0, 0, 0.04);
+            --text-primary: #0E0E10;
+            --text-secondary: #666666;
             --border-color: rgba(0, 0, 0, 0.08);
-            --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.08);
-            --shadow-medium: 0 8px 30px rgba(0, 0, 0, 0.12);
-            --shadow-strong: 0 12px 40px rgba(102, 126, 234, 0.2);
+            --accent-purple: #7B3EEB;
+            --accent-lime: #A5E000;
+            --gradient-main: linear-gradient(135deg, #7B3EEB, #A5E000);
+            --gradient-glow: linear-gradient(135deg, rgba(123, 62, 235, 0.08), rgba(165, 224, 0, 0.08));
+            --shadow-soft: 0 2px 20px rgba(0, 0, 0, 0.06);
+            --shadow-medium: 0 4px 30px rgba(0, 0, 0, 0.08);
+            --shadow-strong: 0 8px 40px rgba(123, 62, 235, 0.12);
+            --shadow-glow: 0 0 15px rgba(123, 62, 235, 0.12);
         }
 
         * {
@@ -48,12 +54,14 @@
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: var(--bg-primary);
             color: var(--text-primary);
             overflow-x: hidden;
             position: relative;
-            transition: all 0.3s ease;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
         body::before {
@@ -64,16 +72,19 @@
             width: 100%;
             height: 100%;
             background: 
-                radial-gradient(circle at 20% 50%, rgba(102, 126, 234, 0.15) 0%, transparent 60%),
-                radial-gradient(circle at 80% 80%, rgba(118, 75, 162, 0.15) 0%, transparent 60%),
-                radial-gradient(circle at 40% 20%, rgba(79, 172, 254, 0.1) 0%, transparent 60%),
-                radial-gradient(circle at 60% 60%, rgba(0, 242, 254, 0.08) 0%, transparent 60%);
-            animation: gradientShift 20s ease infinite;
+                radial-gradient(circle at 20% 30%, rgba(123, 62, 235, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(191, 255, 77, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(123, 62, 235, 0.04) 0%, transparent 60%);
+            animation: gradientShift 25s ease infinite;
             z-index: -2;
+            transition: opacity 0.3s ease;
         }
 
         [data-theme="light"] body::before {
-            opacity: 0.4;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(123, 62, 235, 0.04) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(165, 224, 0, 0.03) 0%, transparent 50%);
+            opacity: 1;
         }
 
         @keyframes gradientShift {
@@ -158,10 +169,10 @@
         }
 
         .container {
-            max-width: 600px;
+            max-width: 480px;
             margin: 0 auto;
-            padding: 20px;
-            padding-bottom: 120px;
+            padding: 16px;
+            padding-bottom: 100px;
             position: relative;
             z-index: 1;
         }
@@ -169,13 +180,13 @@
         header {
             text-align: center;
             padding: 32px 24px;
-            background: linear-gradient(135deg, var(--gradient-1) 0%, var(--gradient-2) 50%, var(--gradient-3) 100%);
+            background: var(--gradient-main);
             border-radius: var(--border-radius-lg);
             margin-bottom: 20px;
             box-shadow: var(--shadow-strong);
             position: relative;
             overflow: hidden;
-            animation: slideDown 1s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: slideDown 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         header::before {
@@ -185,7 +196,7 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.08), transparent);
             animation: shimmer 4s infinite;
         }
 
@@ -196,8 +207,19 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+            background: linear-gradient(
+                180deg,
+                rgba(0, 0, 0, 0.6) 0%,
+                rgba(0, 0, 0, 0.45) 40%,
+                rgba(0, 0, 0, 0.3) 70%,
+                rgba(0, 0, 0, 0.08) 100%
+            );
             pointer-events: none;
+        }
+
+        @keyframes fadeInLift {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         @keyframes shimmer {
@@ -221,7 +243,9 @@
             justify-content: center;
             position: relative;
             z-index: 1;
-            animation: bounce 2s ease-in-out infinite;
+            opacity: 0;
+            transform: translateY(10px);
+            animation: fadeInLift 0.8s ease forwards, bounce 2s ease-in-out 0.8s infinite;
         }
 
         @keyframes bounce {
@@ -232,6 +256,7 @@
         .header-icon ion-icon {
             font-size: 40px;
             color: white;
+            filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.6));
         }
 
         header h1 {
@@ -240,19 +265,31 @@
             font-weight: 900;
             position: relative;
             z-index: 1;
-            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            text-shadow:
+                0 8px 24px rgba(0, 0, 0, 0.65),
+                0 0 12px rgba(0, 0, 0, 0.4),
+                0 0 22px rgba(123, 62, 235, 0.3);
             color: white;
             letter-spacing: -0.02em;
+            opacity: 0;
+            transform: translateY(12px);
+            animation: fadeInLift 0.8s ease 0.15s forwards;
         }
 
         .subtitle {
-            opacity: 0.95;
             font-size: 16px;
             font-weight: 500;
             position: relative;
             z-index: 1;
             color: white;
             margin-bottom: 20px;
+            text-shadow:
+                0 6px 22px rgba(0, 0, 0, 0.65),
+                0 2px 8px rgba(0, 0, 0, 0.45),
+                0 0 18px rgba(123, 62, 235, 0.28);
+            opacity: 0;
+            transform: translateY(14px);
+            animation: fadeInLift 0.8s ease 0.3s forwards;
         }
 
         .stats-bar {
@@ -263,6 +300,9 @@
             border-top: 1px solid rgba(255, 255, 255, 0.2);
             position: relative;
             z-index: 1;
+            opacity: 0;
+            transform: translateY(16px);
+            animation: fadeInLift 0.8s ease 0.45s forwards;
         }
 
         .stat-item {
@@ -276,6 +316,7 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             animation: glow 2s ease-in-out infinite alternate;
+            filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.65));
         }
 
         @keyframes glow {
@@ -289,6 +330,9 @@
             margin-top: 6px;
             color: white;
             font-weight: 500;
+            text-shadow:
+                0 6px 16px rgba(0, 0, 0, 0.6),
+                0 2px 6px rgba(0, 0, 0, 0.45);
         }
 
         .guarantee-badges {
@@ -308,10 +352,10 @@
             background: var(--bg-card);
             padding: 16px 10px;
             border-radius: var(--border-radius);
-            border: 2px solid transparent;
-            backdrop-filter: blur(20px);
+            border: 1px solid var(--border-color);
+            backdrop-filter: blur(12px);
             text-align: center;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
             cursor: pointer;
             position: relative;
             overflow: hidden;
@@ -333,16 +377,16 @@
         }
 
         .badge-item:hover {
-            border-color: rgba(102, 126, 234, 0.5);
-            transform: translateY(-6px) scale(1.02);
-            box-shadow: var(--shadow-medium);
+            border-color: rgba(157, 75, 255, 0.45);
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 16px 30px rgba(157, 75, 255, 0.25);
         }
 
         .badge-icon {
             width: 36px;
             height: 36px;
             margin: 0 auto 8px;
-            background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
+            background: var(--gradient-main);
             border-radius: 12px;
             display: flex;
             align-items: center;
@@ -363,14 +407,16 @@
         }
 
         .trust-block {
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.15), rgba(118, 75, 162, 0.15));
+            background: var(--bg-card);
+            backdrop-filter: blur(12px);
             border-radius: var(--border-radius);
             padding: 20px 24px;
             margin-bottom: 20px;
-            border: 2px solid rgba(102, 126, 234, 0.3);
-            animation: fadeInScale 1s ease 0.5s both;
+            border: 1px solid var(--border-color);
+            animation: fadeInScale 0.6s ease 0.3s both;
             position: relative;
             overflow: hidden;
+            box-shadow: var(--shadow-soft);
         }
 
         .trust-block::before {
@@ -402,18 +448,20 @@
         .trust-title {
             font-size: 19px;
             font-weight: 700;
-            background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
+            background: var(--gradient-main);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            background-clip: text;
             display: flex;
             align-items: center;
             gap: 10px;
+            text-shadow: 0 0 16px rgba(123, 62, 235, 0.3);
         }
 
         .trust-icon {
             width: 32px;
             height: 32px;
-            background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
+            background: var(--gradient-main);
             border-radius: 8px;
             display: flex;
             align-items: center;
@@ -466,7 +514,7 @@
             padding: 10px;
             background: rgba(255, 255, 255, 0.05);
             border-radius: 12px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
             border: 1px solid transparent;
         }
 
@@ -475,9 +523,10 @@
         }
 
         .trust-item:hover {
-            background: rgba(255, 255, 255, 0.1);
-            transform: translateX(6px);
-            border-color: rgba(102, 126, 234, 0.3);
+            background: rgba(255, 255, 255, 0.12);
+            transform: translateX(6px) scale(1.02);
+            border-color: rgba(157, 75, 255, 0.35);
+            box-shadow: 0 14px 26px rgba(157, 75, 255, 0.2);
         }
 
         .trust-item-icon {
@@ -496,91 +545,6 @@
             color: white;
         }
 
-        .toast-notification {
-            position: fixed;
-            top: 80px;
-            right: 20px;
-            background: linear-gradient(135deg, rgba(26, 26, 46, 0.98), rgba(22, 33, 62, 0.98));
-            backdrop-filter: blur(30px);
-            border-radius: var(--border-radius);
-            padding: 18px 22px;
-            min-width: 320px;
-            max-width: 90%;
-            box-shadow: var(--shadow-strong);
-            border: 2px solid rgba(102, 126, 234, 0.4);
-            z-index: 5000;
-            transform: translateX(400px);
-            animation: slideInRight 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-            display: flex;
-            align-items: center;
-            gap: 14px;
-        }
-
-        @keyframes slideInRight {
-            to { transform: translateX(0); }
-        }
-
-        .toast-notification.hide {
-            animation: slideOutRight 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-        }
-
-        @keyframes slideOutRight {
-            to { transform: translateX(400px); }
-        }
-
-        .toast-avatar {
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            position: relative;
-        }
-
-        .toast-avatar::after {
-            content: '';
-            position: absolute;
-            inset: -2px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
-            z-index: -1;
-            opacity: 0.3;
-            filter: blur(8px);
-        }
-
-        .toast-avatar ion-icon {
-            font-size: 24px;
-            color: white;
-        }
-
-        .toast-content {
-            flex: 1;
-        }
-
-        .toast-name {
-            font-weight: 700;
-            font-size: 15px;
-            margin-bottom: 4px;
-            background: linear-gradient(135deg, #4ade80, #22c55e);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .toast-product {
-            font-size: 13px;
-            opacity: 0.9;
-            color: white;
-            margin-bottom: 2px;
-        }
-
-        .toast-time {
-            font-size: 11px;
-            opacity: 0.6;
-            color: white;
-        }
 
         .tabs {
             display: flex;
@@ -589,22 +553,23 @@
             background: var(--bg-card);
             padding: 8px;
             border-radius: var(--border-radius);
-            backdrop-filter: blur(20px);
+            backdrop-filter: blur(12px);
             border: 1px solid var(--border-color);
-            animation: fadeInScale 1s ease 0.2s both;
+            animation: fadeInScale 0.6s ease 0.2s both;
         }
 
         .tab {
             flex: 1;
             padding: 16px 20px;
+            min-height: 52px;
             background: transparent;
             border: none;
-            border-radius: 14px;
+            border-radius: 12px;
             color: var(--text-secondary);
             font-size: 16px;
             font-weight: 700;
             cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s ease-in-out;
             position: relative;
             display: flex;
             align-items: center;
@@ -637,10 +602,10 @@
         }
 
         .tab.active {
-            background: linear-gradient(135deg, var(--gradient-1) 0%, var(--gradient-2) 100%);
-            color: white;
-            transform: scale(1.05);
-            box-shadow: var(--shadow-medium);
+            background: var(--gradient-main);
+            color: #000000;
+            transform: scale(1.02);
+            box-shadow: var(--shadow-glow);
         }
 
         .reviews-section {
@@ -662,6 +627,7 @@
             display: flex;
             align-items: center;
             gap: 8px;
+            text-shadow: 0 0 16px rgba(123, 62, 235, 0.28);
         }
 
         .reviews-header ion-icon {
@@ -698,7 +664,7 @@
             scroll-snap-align: start;
             backdrop-filter: blur(20px);
             box-shadow: var(--shadow-soft);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
             position: relative;
             overflow: hidden;
         }
@@ -721,9 +687,9 @@
         }
 
         .review:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-medium);
-            border-color: rgba(102, 126, 234, 0.3);
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 16px 32px rgba(157, 75, 255, 0.25);
+            border-color: rgba(157, 75, 255, 0.35);
         }
 
         .review-header {
@@ -778,14 +744,15 @@
 
         .product {
             background: var(--bg-card);
+            backdrop-filter: blur(12px);
             border-radius: var(--border-radius-lg);
-            padding: 32px;
+            padding: 28px;
             cursor: pointer;
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            border: 2px solid var(--border-color);
+            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+            border: 1px solid var(--border-color);
             position: relative;
             overflow: hidden;
-            backdrop-filter: blur(20px);
+            box-shadow: var(--shadow-soft);
         }
 
         .product::before {
@@ -794,11 +761,11 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, var(--gradient-1), var(--gradient-2), var(--gradient-3), var(--gradient-4));
+            height: 3px;
+            background: var(--gradient-main);
             transform: scaleX(0);
             transform-origin: left;
-            transition: transform 0.6s ease;
+            transition: transform 0.4s ease;
         }
 
         .product:hover::before {
@@ -806,13 +773,13 @@
         }
 
         .product:hover {
-            transform: translateY(-12px);
-            border-color: rgba(102, 126, 234, 0.5);
-            box-shadow: var(--shadow-strong);
+            transform: translateY(-6px) scale(1.02);
+            border-color: rgba(157, 75, 255, 0.6);
+            box-shadow: 0 20px 38px rgba(157, 75, 255, 0.25);
         }
 
         .product:active {
-            transform: translateY(-12px) scale(0.98);
+            transform: translateY(-6px) scale(0.98);
         }
 
         .urgency-timer {
@@ -832,6 +799,11 @@
         @keyframes pulse {
             0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
             50% { opacity: 0.8; box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
+        }
+
+        @keyframes ctaPulse {
+            0%, 100% { box-shadow: 0 14px 32px rgba(123, 62, 235, 0.32); }
+            50% { box-shadow: 0 18px 38px rgba(191, 255, 77, 0.35); }
         }
 
         .urgency-timer ion-icon {
@@ -911,6 +883,7 @@
             line-height: 1.4;
             flex: 1;
             margin-right: 16px;
+            text-shadow: 0 0 18px rgba(123, 62, 235, 0.28);
         }
 
         .product-price {
@@ -1012,17 +985,18 @@
             justify-content: center;
             gap: 10px;
             padding: 18px 28px;
-            background: linear-gradient(135deg, #4ade80, #22c55e);
+            min-height: 56px;
+            background: var(--gradient-main);
             border: none;
-            border-radius: 16px;
-            color: white;
+            border-radius: 12px;
+            color: #000000;
             font-size: 17px;
             font-weight: 700;
             cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
             margin-top: 20px;
             width: 100%;
-            box-shadow: 0 6px 20px rgba(74, 222, 128, 0.4);
+            box-shadow: var(--shadow-glow);
             position: relative;
             overflow: hidden;
         }
@@ -1047,8 +1021,8 @@
         }
 
         .buy-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 32px rgba(74, 222, 128, 0.5);
+            transform: translateY(-2px) scale(1.02);
+            animation: ctaPulse 1.6s ease-in-out infinite;
         }
 
         .buy-btn:active {
@@ -1295,11 +1269,12 @@
 
         .btn {
             width: 100%;
-            padding: 20px;
-            background: linear-gradient(135deg, var(--gradient-1) 0%, var(--gradient-2) 100%);
+            padding: 18px;
+            min-height: 56px;
+            background: var(--gradient-main);
             border: none;
-            border-radius: var(--border-radius);
-            color: white;
+            border-radius: 12px;
+            color: #000000;
             font-size: 18px;
             font-weight: 800;
             cursor: pointer;
@@ -1308,7 +1283,7 @@
             align-items: center;
             justify-content: center;
             gap: 10px;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
             position: relative;
             overflow: hidden;
         }
@@ -1333,8 +1308,8 @@
         }
 
         .btn:hover {
-            box-shadow: 0 12px 40px rgba(102, 126, 234, 0.5);
-            transform: translateY(-3px);
+            transform: translateY(-2px) scale(1.02);
+            animation: ctaPulse 1.6s ease-in-out infinite;
         }
 
         .btn:active {
@@ -1342,21 +1317,25 @@
         }
 
         .btn-secondary {
-            background: rgba(255, 255, 255, 0.1);
+            background: var(--bg-card);
+            backdrop-filter: blur(12px);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
         }
 
         .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.15);
+            background: var(--bg-secondary);
             box-shadow: var(--shadow-medium);
+            border-color: var(--accent-purple);
         }
 
         @media (max-width: 480px) {
             .container {
-                padding: 16px;
+                padding: 12px;
             }
             
             header {
-                padding: 24px 20px;
+                padding: 28px 20px;
             }
             
             .product {
@@ -1364,21 +1343,31 @@
             }
             
             .product-icon-wrapper {
-                width: 70px;
-                height: 70px;
+                width: 64px;
+                height: 64px;
             }
             
             .product-icon-wrapper ion-icon {
-                font-size: 40px;
+                font-size: 36px;
             }
             
             .guarantee-badges {
                 grid-template-columns: repeat(2, 1fr);
-                gap: 12px;
+                gap: 10px;
             }
             
             .trust-items {
                 grid-template-columns: 1fr;
+            }
+            
+            .tab {
+                padding: 14px 16px;
+                font-size: 15px;
+            }
+            
+            .buy-btn, .btn {
+                min-height: 52px;
+                font-size: 16px;
             }
         }
     
@@ -1470,11 +1459,11 @@ html[data-theme="light"] #payment-loader { background: rgba(10,12,20,.35); }
             
             <div class="stats-bar">
                 <div class="stat-item">
-                    <div class="stat-number" id="todayPurchases">127</div>
+                    <div class="stat-number" id="todayPurchases" data-target="127" data-duration="1500">127</div>
                     <div class="stat-label">Покупок за 24ч</div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-number">2,847+</div>
+                    <div class="stat-number" data-target="2847" data-suffix="+">2,847+</div>
                     <div class="stat-label">Всего клиентов</div>
                 </div>
             </div>
@@ -1699,8 +1688,65 @@ html[data-theme="light"] #payment-loader { background: rgba(10,12,20,.35); }
     </div>
 
     <script>
-        const tg = window.Telegram.WebApp;
-        tg.expand();
+        const tg = (window.Telegram && window.Telegram.WebApp) ? window.Telegram.WebApp : null;
+        if (tg && typeof tg.expand === 'function') {
+            tg.expand();
+        }
+        
+        const THEME_STORAGE_KEY = 'luno-theme';
+        const DEFAULT_THEME = 'dark';
+        
+        // Инициализация темы из Telegram
+        function initTheme() {
+            let storedTheme = null;
+            try {
+                storedTheme = localStorage.getItem(THEME_STORAGE_KEY);
+            } catch (error) {}
+            
+            const themeToApply = storedTheme || DEFAULT_THEME;
+            applyTheme(themeToApply);
+            
+            if (!storedTheme) {
+                try {
+                    localStorage.setItem(THEME_STORAGE_KEY, themeToApply);
+                } catch (error) {}
+            }
+        }
+
+        function applyTheme(theme) {
+            document.body.setAttribute('data-theme', theme);
+            updateThemeToggle(theme);
+        }
+        
+        function updateThemeToggle(theme) {
+            const toggle = document.getElementById('themeToggle');
+            if (toggle) {
+                toggle.innerHTML = theme === 'dark' 
+                    ? '<ion-icon name="moon"></ion-icon>' 
+                    : '<ion-icon name="sunny"></ion-icon>';
+            }
+        }
+        
+        // Слушать изменения темы в Telegram
+        if (tg && tg.onEvent) {
+            tg.onEvent('themeChanged', function() {
+                let storedTheme = null;
+                try {
+                    storedTheme = localStorage.getItem(THEME_STORAGE_KEY);
+                } catch (error) {}
+                
+                if (storedTheme) {
+                    applyTheme(storedTheme);
+                    return;
+                }
+                
+                const newTheme = tg.colorScheme || DEFAULT_THEME;
+                applyTheme(newTheme);
+            });
+        }
+        
+        // Инициализировать тему при загрузке
+        initTheme();
 
         function createParticles() {
             const container = document.getElementById('particles');
@@ -1717,18 +1763,67 @@ html[data-theme="light"] #payment-loader { background: rgba(10,12,20,.35); }
         }
         createParticles();
 
+        const numberFormatter = new Intl.NumberFormat('ru-RU');
+
+        function runStatCounter(counter) {
+            const target = parseInt(counter.dataset.target, 10);
+            if (!target) {
+                return;
+            }
+
+            const duration = parseInt(counter.dataset.duration, 10) || 1200;
+            const suffix = counter.dataset.suffix || '';
+            const prefix = counter.dataset.prefix || '';
+            const startValue = parseInt(counter.dataset.start || '0', 10);
+            const startTime = performance.now();
+
+            function update(now) {
+                const elapsed = now - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                const current = Math.round(startValue + (target - startValue) * progress);
+                counter.textContent = `${prefix}${numberFormatter.format(current)}${suffix}`;
+                if (progress < 1) {
+                    requestAnimationFrame(update);
+                }
+            }
+
+            requestAnimationFrame(update);
+        }
+
+        function initStatCounters() {
+            const counters = document.querySelectorAll('.stat-number[data-target]');
+            if (!counters.length) {
+                return;
+            }
+
+            counters.forEach(counter => {
+                const suffix = counter.dataset.suffix || '';
+                const prefix = counter.dataset.prefix || '';
+                counter.textContent = `${prefix}0${suffix}`;
+            });
+
+            const observer = new IntersectionObserver((entries, obs) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        runStatCounter(entry.target);
+                        obs.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            counters.forEach(counter => observer.observe(counter));
+        }
+        initStatCounters();
+
         function toggleTheme() {
             const body = document.body;
-            const toggle = document.getElementById('themeToggle');
-            const currentTheme = body.getAttribute('data-theme');
+            const currentTheme = body.getAttribute('data-theme') || DEFAULT_THEME;
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
             
-            if (currentTheme === 'dark') {
-                body.setAttribute('data-theme', 'light');
-                toggle.innerHTML = '<ion-icon name="sunny"></ion-icon>';
-            } else {
-                body.setAttribute('data-theme', 'dark');
-                toggle.innerHTML = '<ion-icon name="moon"></ion-icon>';
-            }
+            applyTheme(newTheme);
+            try {
+                localStorage.setItem(THEME_STORAGE_KEY, newTheme);
+            } catch (error) {}
             
             if (navigator.vibrate) {
                 navigator.vibrate(50);
@@ -1736,7 +1831,7 @@ html[data-theme="light"] #payment-loader { background: rgba(10,12,20,.35); }
         }
 
         function createConfetti() {
-            const colors = ['#667eea', '#764ba2', '#4ade80', '#fbbf24', '#ef4444', '#8b5cf6', '#4facfe', '#00f2fe'];
+            const colors = ['#7B3EEB', '#BFFF4D', '#7B3EEB', '#BFFF4D', '#6930C3', '#A5E000', '#9D5FE8', '#D4FF66'];
             for (let i = 0; i < 120; i++) {
                 setTimeout(() => {
                     const confetti = document.createElement('div');
@@ -1763,56 +1858,6 @@ html[data-theme="light"] #payment-loader { background: rgba(10,12,20,.35); }
                 navigator.vibrate(30);
             }
         }
-
-        function animateCounter() {
-            const counter = document.getElementById('todayPurchases');
-            let count = 127;
-            setInterval(() => {
-                count += Math.floor(Math.random() * 3);
-                counter.textContent = count;
-            }, 30000);
-        }
-        animateCounter();
-
-        const notifications = [
-            { name: 'Максим', product: 'ВХ ЧЕРЕЗ СТЕНЫ', time: 2, icon: 'person' },
-            { name: 'Артём', product: '1000 GOLD', time: 5, icon: 'game-controller' },
-            { name: 'Игорь', product: 'АДМИН ПАНЕЛЬ', time: 8, icon: 'flash' },
-            { name: 'Кирилл', product: '500 GOLD', time: 12, icon: 'diamond' },
-            { name: 'Никита', product: 'ПАНЕЛЬ РАЗРАБА', time: 15, icon: 'rocket' },
-            { name: 'Владислав', product: '3000 GOLD', time: 18, icon: 'star' },
-            { name: 'Дмитрий', product: 'ВХ + СКИНЫ', time: 22, icon: 'trophy' }
-        ];
-
-        let notifIndex = 0;
-        function showToast() {
-            const notif = notifications[notifIndex % notifications.length];
-            
-            const toast = document.createElement('div');
-            toast.className = 'toast-notification';
-            toast.innerHTML = `
-                <div class="toast-avatar">
-                    <ion-icon name="${notif.icon}"></ion-icon>
-                </div>
-                <div class="toast-content">
-                    <div class="toast-name">${notif.name}</div>
-                    <div class="toast-product">Купил: ${notif.product}</div>
-                    <div class="toast-time">${notif.time} мин назад</div>
-                </div>
-            `;
-            
-            document.body.appendChild(toast);
-            
-            setTimeout(() => {
-                toast.classList.add('hide');
-                setTimeout(() => toast.remove(), 600);
-            }, 6000);
-            
-            notifIndex++;
-        }
-
-        setInterval(showToast, 12000);
-        setTimeout(showToast, 2000);
 
         const reviews = {
             cheats: [

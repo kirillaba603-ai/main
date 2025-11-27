@@ -21,6 +21,9 @@
             --accent-lime: #BFFF4D;
             --gradient-main: linear-gradient(135deg, #7B3EEB, #BFFF4D);
             --gradient-glow: linear-gradient(135deg, rgba(123, 62, 235, 0.15), rgba(191, 255, 77, 0.15));
+            --gradient-1: #7B3EEB;
+            --gradient-2: #BFFF4D;
+            --gradient-3: #6930C3;
             --shadow-soft: 0 4px 30px rgba(0, 0, 0, 0.2);
             --shadow-medium: 0 8px 40px rgba(0, 0, 0, 0.3);
             --shadow-strong: 0 12px 50px rgba(123, 62, 235, 0.25);
@@ -40,6 +43,9 @@
             --accent-lime: #A5E000;
             --gradient-main: linear-gradient(135deg, #7B3EEB, #A5E000);
             --gradient-glow: linear-gradient(135deg, rgba(123, 62, 235, 0.08), rgba(165, 224, 0, 0.08));
+            --gradient-1: #7B3EEB;
+            --gradient-2: #A5E000;
+            --gradient-3: #6930C3;
             --shadow-soft: 0 2px 20px rgba(0, 0, 0, 0.06);
             --shadow-medium: 0 4px 30px rgba(0, 0, 0, 0.08);
             --shadow-strong: 0 8px 40px rgba(123, 62, 235, 0.12);
@@ -110,6 +116,7 @@
             cursor: pointer;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             box-shadow: var(--shadow-soft);
+            padding: 0;
         }
 
         .theme-toggle:hover {
@@ -1041,6 +1048,11 @@
             display: none;
             overflow-y: auto;
             padding: 20px;
+            cursor: pointer;
+        }
+        
+        .payment-modal .payment-content {
+            cursor: default;
         }
 
         .payment-modal.active {
@@ -1141,6 +1153,17 @@
             outline: none;
             border-color: var(--gradient-1);
             box-shadow: 0 0 20px rgba(102, 126, 234, 0.3);
+        }
+        
+        .promo-input:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            pointer-events: none;
         }
 
         .payment-methods {
@@ -1445,9 +1468,9 @@ html[data-theme="light"] #payment-loader { background: rgba(10,12,20,.35); }
 <body data-theme="dark">
     <div class="particles" id="particles"></div>
 
-    <div class="theme-toggle" onclick="toggleTheme()" id="themeToggle">
-        <ion-icon name="moon"></ion-icon>
-    </div>
+    <button class="theme-toggle" onclick="toggleTheme()" id="themeToggle" aria-label="Переключить тему">
+        <ion-icon name="moon" aria-hidden="true"></ion-icon>
+    </button>
 
     <div class="container">
         <header>
@@ -1550,13 +1573,13 @@ html[data-theme="light"] #payment-loader { background: rgba(10,12,20,.35); }
             </div>
         </div>
 
-        <div class="tabs">
-            <button class="tab active" onclick="switchTab('cheats')">
-                <ion-icon name="code-slash"></ion-icon>
+        <div class="tabs" role="tablist">
+            <button class="tab active" onclick="switchTab(event, 'cheats')" role="tab" aria-selected="true" aria-label="Читы">
+                <ion-icon name="code-slash" aria-hidden="true"></ion-icon>
                 Читы
             </button>
-            <button class="tab" onclick="switchTab('gold')">
-                <ion-icon name="cash"></ion-icon>
+            <button class="tab" onclick="switchTab(event, 'gold')" role="tab" aria-selected="false" aria-label="Голда">
+                <ion-icon name="cash" aria-hidden="true"></ion-icon>
                 Голда
             </button>
         </div>
@@ -1575,11 +1598,11 @@ html[data-theme="light"] #payment-loader { background: rgba(10,12,20,.35); }
         <div id="products" class="products"></div>
     </div>
 
-    <div id="paymentModal" class="payment-modal">
-        <div class="payment-content">
+    <div id="paymentModal" class="payment-modal" onclick="closePaymentModalOnBackdrop(event)" role="dialog" aria-modal="true" aria-labelledby="paymentModalTitle">
+        <div class="payment-content" onclick="event.stopPropagation()">
             <div class="payment-header">
-                <h2>
-                    <ion-icon name="card"></ion-icon>
+                <h2 id="paymentModalTitle">
+                    <ion-icon name="card" aria-hidden="true"></ion-icon>
                     Оплата заказа
                 </h2>
                 <p id="selectedProductName"></p>
@@ -1601,35 +1624,35 @@ html[data-theme="light"] #payment-loader { background: rgba(10,12,20,.35); }
             </div>
 
             <div class="promo-section">
-                <input type="text" class="promo-input" id="promoInput" placeholder="🎁 Введите промокод">
-                <button class="btn btn-secondary" onclick="applyPromo()">
-                    <ion-icon name="gift"></ion-icon>
-                    Применить промокод
+                <input type="text" class="promo-input" id="promoInput" placeholder="🎁 Введите промокод" aria-label="Промокод">
+                <button class="btn btn-secondary" onclick="applyPromo()" id="applyPromoBtn" aria-label="Применить промокод">
+                    <ion-icon name="gift" aria-hidden="true"></ion-icon>
+                    <span id="promoButtonText">Применить промокод</span>
                 </button>
             </div>
 
-            <div class="payment-methods">
-                <div class="payment-method" onclick="selectPayment('card')">
+            <div class="payment-methods" role="radiogroup" aria-label="Способ оплаты">
+                <div class="payment-method" onclick="selectPayment(event, 'card')" role="radio" aria-checked="false" tabindex="0" data-pay="card">
                     <div class="payment-method-icon">
-                        <ion-icon name="card"></ion-icon>
+                        <ion-icon name="card" aria-hidden="true"></ion-icon>
                     </div>
                     <div>
                         <div style="font-weight: 700; font-size: 16px;">Банковская карта</div>
                         <div style="font-size: 13px; opacity: 0.7; margin-top: 4px;">МИР, VISA, Mastercard</div>
                     </div>
                 </div>
-                <div class="payment-method" onclick="selectPayment('yoomoney')">
+                <div class="payment-method" onclick="selectPayment(event, 'yoomoney')" role="radio" aria-checked="false" tabindex="0" data-pay="yoomoney">
                     <div class="payment-method-icon">
-                        <ion-icon name="wallet"></ion-icon>
+                        <ion-icon name="wallet" aria-hidden="true"></ion-icon>
                     </div>
                     <div>
                         <div style="font-weight: 700; font-size: 16px;">ЮMoney</div>
                         <div style="font-size: 13px; opacity: 0.7; margin-top: 4px;">Электронный кошелек</div>
                     </div>
                 </div>
-                <div class="payment-method" onclick="selectPayment('sbp')">
+                <div class="payment-method" onclick="selectPayment(event, 'sbp')" role="radio" aria-checked="false" tabindex="0" data-pay="sbp">
                     <div class="payment-method-icon">
-                        <ion-icon name="flash"></ion-icon>
+                        <ion-icon name="flash" aria-hidden="true"></ion-icon>
                     </div>
                     <div>
                         <div style="font-weight: 700; font-size: 16px;">СБП</div>
@@ -1676,12 +1699,12 @@ html[data-theme="light"] #payment-loader { background: rgba(10,12,20,.35); }
                 <p style="margin: 12px 0 0 0; opacity: 0.7; font-size: 13px;">💡 Нажмите на номер телефона, чтобы скопировать</p>
             </div>
 
-            <button class="btn" onclick="confirmPayment()">
-                <ion-icon name="checkmark-circle"></ion-icon>
+            <button class="btn" onclick="confirmPayment()" id="confirmPaymentBtn" aria-label="Подтвердить оплату">
+                <ion-icon name="checkmark-circle" aria-hidden="true"></ion-icon>
                 Оплатил - Подтвердить
             </button>
-            <button class="btn btn-secondary" onclick="closePaymentModal()">
-                <ion-icon name="close-circle"></ion-icon>
+            <button class="btn btn-secondary" onclick="closePaymentModal()" aria-label="Отменить заказ">
+                <ion-icon name="close-circle" aria-hidden="true"></ion-icon>
                 Отменить заказ
             </button>
         </div>
@@ -1930,16 +1953,27 @@ html[data-theme="light"] #payment-loader { background: rgba(10,12,20,.35); }
         let currentPaymentMethod = null;
         let appliedPromo = null;
 
-        function switchTab(tab) {
+        function switchTab(event, tab) {
             currentTab = tab;
-            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-            event.target.classList.add('active');
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(t => {
+                t.classList.remove('active');
+                t.setAttribute('aria-selected', 'false');
+            });
+            event.currentTarget.classList.add('active');
+            event.currentTarget.setAttribute('aria-selected', 'true');
             renderReviews();
             renderProducts();
             
             if (navigator.vibrate) {
                 navigator.vibrate(30);
             }
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
         }
 
         function renderReviews() {
@@ -1953,13 +1987,13 @@ html[data-theme="light"] #payment-loader { background: rgba(10,12,20,.35); }
                 div.innerHTML = `
                     <div class="review-header">
                         <div class="review-author">
-                            <ion-icon name="person-circle"></ion-icon>
-                            ${review.author}
+                            <ion-icon name="person-circle" aria-hidden="true"></ion-icon>
+                            ${escapeHtml(review.author)}
                         </div>
-                        <div class="review-time">${review.time}</div>
+                        <div class="review-time">${escapeHtml(review.time)}</div>
                     </div>
-                    <div class="review-stars">★★★★★</div>
-                    <div class="review-text">${review.text}</div>
+                    <div class="review-stars" aria-label="5 звёзд">★★★★★</div>
+                    <div class="review-text">${escapeHtml(review.text)}</div>
                 `;
                 container.appendChild(div);
             });
@@ -2072,84 +2106,127 @@ html[data-theme="light"] #payment-loader { background: rgba(10,12,20,.35); }
             document.getElementById('basePrice').textContent = product.price + '₽';
             document.getElementById('finalPrice').textContent = product.price + '₽';
             document.getElementById('discountRow').style.display = 'none';
-            document.getElementById('promoInput').value = '';
             
-            document.querySelectorAll('.payment-method').forEach(m => m.classList.remove('selected'));
+            const promoInput = document.getElementById('promoInput');
+            const promoBtn = document.getElementById('applyPromoBtn');
+            promoInput.value = '';
+            promoInput.disabled = false;
+            promoBtn.disabled = false;
+            document.getElementById('promoButtonText').textContent = 'Применить промокод';
+            
+            document.querySelectorAll('.payment-method').forEach(m => {
+                m.classList.remove('selected');
+                m.setAttribute('aria-checked', 'false');
+            });
             document.querySelectorAll('.payment-details').forEach(d => d.classList.remove('active'));
             
             document.getElementById('paymentModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
         }
 
         function closePaymentModal() {
             document.getElementById('paymentModal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        
+        function closePaymentModalOnBackdrop(event) {
+            if (event.target.id === 'paymentModal') {
+                closePaymentModal();
+            }
         }
 
-        function selectPayment(method) {
+        function selectPayment(event, method) {
             currentPaymentMethod = method;
             
             if (navigator.vibrate) {
                 navigator.vibrate(40);
             }
             
-            document.querySelectorAll('.payment-method').forEach(m => m.classList.remove('selected'));
+            document.querySelectorAll('.payment-method').forEach(m => {
+                m.classList.remove('selected');
+                m.setAttribute('aria-checked', 'false');
+            });
             event.currentTarget.classList.add('selected');
+            event.currentTarget.setAttribute('aria-checked', 'true');
             
             document.querySelectorAll('.payment-details').forEach(d => d.classList.remove('active'));
             document.getElementById(method + 'Details').classList.add('active');
         }
 
         function applyPromo() {
-            const promoCode = document.getElementById('promoInput').value.trim().toUpperCase();
+            const promoInput = document.getElementById('promoInput');
+            const promoCode = promoInput.value.trim().toUpperCase();
+            const promoBtn = document.getElementById('applyPromoBtn');
+            const promoText = document.getElementById('promoButtonText');
             
-            if (promoCode === 'FREE10') {
-                const discount = Math.round(selectedProduct.price * 0.1);
-                const finalPrice = selectedProduct.price - discount;
-                
-                appliedPromo = {code: promoCode, discount: 10};
-                
-                document.getElementById('discountRow').style.display = 'flex';
-                document.getElementById('discountAmount').textContent = '-' + discount + '₽';
-                document.getElementById('finalPrice').textContent = finalPrice + '₽';
-                
-                if (navigator.vibrate) {
-                    navigator.vibrate([70, 70, 70]);
-                }
-                
+            if (!promoCode) {
+                if (navigator.vibrate) navigator.vibrate([100, 50, 100]);
                 tg.showPopup({
-                    title: '🎉 Промокод применён!',
-                    message: 'Скидка 10% активирована. Экономия: ' + discount + '₽',
+                    title: '⚠️ Введите промокод',
+                    message: 'Поле промокода не может быть пустым',
                     buttons: [{type: 'ok'}]
                 });
-            } else if (promoCode === 'REF20') {
-                const discount = Math.round(selectedProduct.price * 0.2);
-                const finalPrice = selectedProduct.price - discount;
-
-                appliedPromo = {code: promoCode, discount: 20};
-
-                document.getElementById('discountRow').style.display = 'flex';
-                document.getElementById('discountAmount').textContent = '-' + discount + '₽';
-                document.getElementById('finalPrice').textContent = finalPrice + '₽';
-
-                if (navigator.vibrate) {
-                    navigator.vibrate([70, 70, 70]);
-                }
-
-                tg.showPopup({
-                    title: '🎉 Промокод применён!',
-                    message: 'Скидка 20% активирована. Экономия: ' + discount + '₽',
-                    buttons: [{type: 'ok'}]
-                });
-            } else {
-                if (navigator.vibrate) {
-                    navigator.vibrate([100, 50, 100]);
-                }
-                
-                tg.showPopup({
-                    title: '❌ Неверный промокод',
-                    message: 'Проверьте правильность, возможно использован уже максимальное кол-во раз',
-                    buttons: [{type: 'ok'}]
-                });
+                return;
             }
+            
+            // Показываем состояние загрузки
+            promoBtn.disabled = true;
+            promoText.textContent = 'Проверка...';
+            
+            setTimeout(() => {
+                if (promoCode === 'FREE10') {
+                    const discount = Math.round(selectedProduct.price * 0.1);
+                    const finalPrice = selectedProduct.price - discount;
+                    
+                    appliedPromo = {code: promoCode, discount: 10};
+                    
+                    document.getElementById('discountRow').style.display = 'flex';
+                    document.getElementById('discountAmount').textContent = '-' + discount + '₽';
+                    document.getElementById('finalPrice').textContent = finalPrice + '₽';
+                    
+                    promoText.textContent = '✓ Применён';
+                    promoInput.disabled = true;
+                    
+                    if (navigator.vibrate) navigator.vibrate([70, 70, 70]);
+                    
+                    tg.showPopup({
+                        title: '🎉 Промокод применён!',
+                        message: 'Скидка 10% активирована. Экономия: ' + discount + '₽',
+                        buttons: [{type: 'ok'}]
+                    });
+                } else if (promoCode === 'REF20') {
+                    const discount = Math.round(selectedProduct.price * 0.2);
+                    const finalPrice = selectedProduct.price - discount;
+
+                    appliedPromo = {code: promoCode, discount: 20};
+
+                    document.getElementById('discountRow').style.display = 'flex';
+                    document.getElementById('discountAmount').textContent = '-' + discount + '₽';
+                    document.getElementById('finalPrice').textContent = finalPrice + '₽';
+
+                    promoText.textContent = '✓ Применён';
+                    promoInput.disabled = true;
+
+                    if (navigator.vibrate) navigator.vibrate([70, 70, 70]);
+
+                    tg.showPopup({
+                        title: '🎉 Промокод применён!',
+                        message: 'Скидка 20% активирована. Экономия: ' + discount + '₽',
+                        buttons: [{type: 'ok'}]
+                    });
+                } else {
+                    promoBtn.disabled = false;
+                    promoText.textContent = 'Применить промокод';
+                    
+                    if (navigator.vibrate) navigator.vibrate([100, 50, 100]);
+                    
+                    tg.showPopup({
+                        title: '❌ Неверный промокод',
+                        message: 'Проверьте правильность, возможно использован уже максимальное кол-во раз',
+                        buttons: [{type: 'ok'}]
+                    });
+                }
+            }, 500);
         }
 
         function copyText(text) {
@@ -2157,24 +2234,46 @@ html[data-theme="light"] #payment-loader { background: rgba(10,12,20,.35); }
                 navigator.vibrate(50);
             }
             
-            if (navigator.clipboard) {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
                 navigator.clipboard.writeText(text).then(() => {
                     tg.showPopup({
                         title: '✅ Скопировано!',
                         message: text,
                         buttons: [{type: 'ok'}]
                     });
+                }).catch(() => {
+                    fallbackCopy(text);
                 });
             } else {
+                fallbackCopy(text);
+            }
+        }
+        
+        function fallbackCopy(text) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.style.position = 'fixed';
+            textarea.style.opacity = '0';
+            document.body.appendChild(textarea);
+            textarea.select();
+            try {
+                document.execCommand('copy');
+                tg.showPopup({
+                    title: '✅ Скопировано!',
+                    message: text,
+                    buttons: [{type: 'ok'}]
+                });
+            } catch (err) {
                 tg.showPopup({
                     title: '📋 Реквизиты',
                     message: text,
                     buttons: [{type: 'ok'}]
                 });
             }
+            document.body.removeChild(textarea);
         }
 
-        function confirmPayment() {
+        function confirmPaymentOriginal() {
             if (!currentPaymentMethod) {
                 if (navigator.vibrate) {
                     navigator.vibrate([100, 50, 100]);
@@ -2183,9 +2282,25 @@ html[data-theme="light"] #payment-loader { background: rgba(10,12,20,.35); }
                 return;
             }
             
+            if (!selectedProduct || !selectedProduct.id || !selectedProduct.name) {
+                if (navigator.vibrate) {
+                    navigator.vibrate([100, 50, 100]);
+                }
+                tg.showAlert('⚠️ Ошибка: товар не выбран');
+                return;
+            }
+            
             const finalPrice = appliedPromo 
                 ? selectedProduct.price - Math.round(selectedProduct.price * appliedPromo.discount / 100)
                 : selectedProduct.price;
+            
+            if (finalPrice <= 0) {
+                if (navigator.vibrate) {
+                    navigator.vibrate([100, 50, 100]);
+                }
+                tg.showAlert('⚠️ Ошибка: некорректная цена');
+                return;
+            }
             
             createConfetti();
             
@@ -2196,7 +2311,7 @@ html[data-theme="light"] #payment-loader { background: rgba(10,12,20,.35); }
             // Проверяем, открыт ли WebApp через меню
             const isMenuButton = !tg.initDataUnsafe.query_id;
             
-            tg.sendData(JSON.stringify({
+            const paymentData = {
                 product_id: selectedProduct.id,
                 product_name: selectedProduct.name,
                 price: finalPrice,
@@ -2204,8 +2319,11 @@ html[data-theme="light"] #payment-loader { background: rgba(10,12,20,.35); }
                 promo_code: appliedPromo ? appliedPromo.code : null,
                 payment_method: currentPaymentMethod,
                 user_id: tg.initDataUnsafe?.user?.id || 0,
-                username: tg.initDataUnsafe?.user?.username || 'unknown'
-            }));
+                username: tg.initDataUnsafe?.user?.username || 'unknown',
+                timestamp: Date.now()
+            };
+            
+            tg.sendData(JSON.stringify(paymentData));
             
             if (isMenuButton) {
                 tg.showAlert(
@@ -2293,9 +2411,9 @@ ${message}`);
     });
   } catch(e){}
 
-  // Intercept confirmPayment if defined (wrap with progress+loader and add popup when sent) (11,14,4)
+  // Intercept confirmPaymentOriginal if defined (wrap with progress+loader and add popup when sent) (11,14,4)
   try {
-    const originalConfirm = window.confirmPayment;
+    const originalConfirm = window.confirmPaymentOriginal;
     if (typeof originalConfirm === 'function') {
       window.confirmPayment = withProgress(function(){
         let sent = false;

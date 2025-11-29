@@ -780,6 +780,114 @@
         .icon-blue { background: linear-gradient(135deg, #60a5fa, #2563eb); }
         .icon-red { background: linear-gradient(135deg, #f87171, #dc2626); }
 
+        /* Christmas themed icons */
+        .icon-xmas-green { 
+            background: linear-gradient(135deg, #166534, #22c55e, #166534);
+            box-shadow: 0 10px 30px rgba(34, 197, 94, 0.4), 0 0 40px rgba(34, 197, 94, 0.2);
+            position: relative;
+        }
+        .icon-xmas-green::before {
+            content: '🎄';
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            font-size: 20px;
+            animation: ornamentSwing 2s ease-in-out infinite;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+        }
+
+        .icon-xmas-red { 
+            background: linear-gradient(135deg, #991b1b, #ef4444, #dc2626);
+            box-shadow: 0 10px 30px rgba(239, 68, 68, 0.4), 0 0 40px rgba(239, 68, 68, 0.2);
+            position: relative;
+        }
+        .icon-xmas-red::before {
+            content: '🎀';
+            position: absolute;
+            top: -10px;
+            right: -6px;
+            font-size: 18px;
+            animation: ornamentSwing 2.5s ease-in-out infinite;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+        }
+
+        .icon-xmas-gold { 
+            background: linear-gradient(135deg, #b45309, #fbbf24, #f59e0b);
+            box-shadow: 0 10px 30px rgba(251, 191, 36, 0.5), 0 0 50px rgba(251, 191, 36, 0.3);
+            position: relative;
+        }
+        .icon-xmas-gold::before {
+            content: '✨';
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            font-size: 16px;
+            animation: starTwinkle 1.5s ease-in-out infinite;
+        }
+        .icon-xmas-gold::after {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: inherit;
+            background: linear-gradient(135deg, rgba(251, 191, 36, 0.5), transparent, rgba(251, 191, 36, 0.5));
+            z-index: -1;
+            animation: goldGlow 2s ease-in-out infinite;
+        }
+
+        .icon-xmas-blue { 
+            background: linear-gradient(135deg, #1e40af, #60a5fa, #3b82f6);
+            box-shadow: 0 10px 30px rgba(96, 165, 250, 0.4), 0 0 40px rgba(96, 165, 250, 0.2);
+            position: relative;
+        }
+        .icon-xmas-blue::before {
+            content: '❄️';
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            font-size: 18px;
+            animation: snowflakeRotate 4s linear infinite;
+        }
+
+        .icon-xmas-purple { 
+            background: linear-gradient(135deg, #581c87, #a855f7, #7c3aed);
+            box-shadow: 0 10px 30px rgba(168, 85, 247, 0.4), 0 0 40px rgba(168, 85, 247, 0.2);
+            position: relative;
+        }
+        .icon-xmas-purple::before {
+            content: '🎅';
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            font-size: 22px;
+            animation: santaBounce 1s ease-in-out infinite;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+        }
+
+        @keyframes ornamentSwing {
+            0%, 100% { transform: rotate(-5deg); }
+            50% { transform: rotate(5deg); }
+        }
+
+        @keyframes starTwinkle {
+            0%, 100% { transform: scale(1) rotate(0deg); opacity: 1; }
+            50% { transform: scale(1.3) rotate(180deg); opacity: 0.8; }
+        }
+
+        @keyframes goldGlow {
+            0%, 100% { opacity: 0.5; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.1); }
+        }
+
+        @keyframes snowflakeRotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes santaBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-4px); }
+        }
+
         .product-header {
             display: flex;
             justify-content: space-between;
@@ -948,6 +1056,75 @@
             font-size: 10px;
             color: var(--text-secondary);
             text-align: center;
+        }
+
+        /* Christmas card decorations */
+        .xmas-card {
+            border: 1px solid rgba(34, 197, 94, 0.15);
+        }
+
+        .xmas-card:hover {
+            border-color: rgba(239, 68, 68, 0.3);
+        }
+
+        .xmas-corner-decor {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 60px;
+            height: 60px;
+            overflow: hidden;
+            z-index: 2;
+        }
+
+        .xmas-corner-decor::before {
+            content: '🎄';
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            font-size: 20px;
+            animation: treeSway 3s ease-in-out infinite;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+        }
+
+        @keyframes treeSway {
+            0%, 100% { transform: rotate(-3deg); }
+            50% { transform: rotate(3deg); }
+        }
+
+        .xmas-urgency {
+            background: linear-gradient(135deg, #166534, #22c55e) !important;
+            box-shadow: 0 4px 15px rgba(34, 197, 94, 0.4);
+        }
+
+        .xmas-discount {
+            background: linear-gradient(135deg, #166534, #22c55e) !important;
+            animation: discountPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes discountPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .xmas-includes {
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.1), rgba(239, 68, 68, 0.05)) !important;
+            border-color: rgba(34, 197, 94, 0.25) !important;
+        }
+
+        .xmas-btn {
+            background: linear-gradient(135deg, #166534, #22c55e, #166534) !important;
+            background-size: 200% 100%;
+            animation: xmasBtnShine 3s ease-in-out infinite;
+        }
+
+        @keyframes xmasBtnShine {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .xmas-btn:hover {
+            box-shadow: 0 0 50px rgba(34, 197, 94, 0.5), 0 10px 30px rgba(34, 197, 94, 0.3) !important;
         }
 
         /* Modal */
@@ -1599,21 +1776,21 @@
                     id: 'cheat_1', name: 'ВХ ЧЕРЕЗ СТЕНЫ — СКИНЧЕНДЖЕР', price: 250, oldPrice: 625,
                     desc: 'Luno APK — приватный DLC для Android/PC/iOS. Не требует Root-прав. Быстрые обновления при патчах.',
                     discount: 60, version: 'v0.36.1 / БЕЗ РУТ / ЛЮБЫЕ УСТРОЙСТВА',
-                    urgency: 'Осталось 2 часа по акции!', icon: 'eye', iconColor: 'icon-green',
+                    urgency: '🎄 Новогодняя акция!', icon: 'snow', iconColor: 'icon-xmas-green', emoji: '🎄',
                     includes: ['Техподдержка 24/7', 'Обновления', 'Подробная инструкция', 'Гарантия 7 дней']
                 },
                 {
                     id: 'cheat_2', name: 'АДМИН ПАНЕЛЬ + ВСЕ ФУНКЦИИ', price: 350, oldPrice: 875,
                     desc: 'Полный доступ ко всем функциям. Максимальная безопасность. Постоянная поддержка разрабов.',
                     discount: 60, version: 'v0.36.1 / БЕЗ РУТ / ЛЮБЫЕ УСТРОЙСТВА',
-                    urgency: '14 человек смотрят сейчас', icon: 'flash', iconColor: 'icon-purple',
+                    urgency: '⭐ 14 человек смотрят', icon: 'star', iconColor: 'icon-xmas-gold', emoji: '⭐',
                     includes: ['Приоритетная поддержка', 'Обновления навсегда', 'VIP инструкция', 'Гарантия 14 дней']
                 },
                 {
                     id: 'cheat_3', name: 'ПАНЕЛЬ РАЗРАБА + ВЫДАЧА ГОЛДЫ', price: 500, oldPrice: 1250,
                     desc: 'Максимальные возможности системы. Выдача голды себе и друзьям. Все VIP функции включены.',
                     discount: 60, version: 'v0.36.1 / БЕЗ РУТ / ЛЮБЫЕ УСТРОЙСТВА',
-                    urgency: 'В наличии: 5 шт', icon: 'rocket', iconColor: 'icon-pink',
+                    urgency: '🎁 Осталось 5 шт!', icon: 'gift', iconColor: 'icon-xmas-red', emoji: '🎁',
                     includes: ['Premium поддержка', 'Все обновления', 'Секретные функции', 'Гарантия 30 дней']
                 }
             ],
@@ -1621,19 +1798,19 @@
                 {
                     id: 'gold_1', name: '500 GOLD', price: 250, oldPrice: 625,
                     desc: 'СКИДКА 60%! Акция ограничена. 500 золотых монет на аккаунт. Моментальное зачисление.',
-                    discount: 60, urgency: 'Акция до: 23:59', icon: 'diamond', iconColor: 'icon-orange',
+                    discount: 60, urgency: '❄️ Зимняя цена!', icon: 'snow', iconColor: 'icon-xmas-blue', emoji: '❄️',
                     includes: ['Моментальная доставка', 'Без банов аккаунта', 'Гарантия зачисления', 'Поддержка 24/7']
                 },
                 {
                     id: 'gold_2', name: '1000 GOLD', price: 350, oldPrice: 875,
                     desc: 'СКИДКА 60%! Самый популярный. 1000 золотых монет на аккаунт. Быстрое зачисление за 5-15 мин.',
-                    discount: 60, urgency: 'Акция до: 23:59', icon: 'diamond', iconColor: 'icon-blue',
+                    discount: 60, urgency: '🎅 Хит продаж!', icon: 'gift', iconColor: 'icon-xmas-purple', emoji: '🎅',
                     includes: ['Моментальная доставка', 'Без банов аккаунта', 'Гарантия зачисления', 'Поддержка 24/7']
                 },
                 {
                     id: 'gold_3', name: '3000 GOLD', price: 425, oldPrice: 1062,
                     desc: 'СКИДКА 60%! Максимальная выгода. 3000 золотых монет на аккаунт. Хватит надолго.',
-                    discount: 60, urgency: 'Акция до: 23:59', icon: 'diamond', iconColor: 'icon-red',
+                    discount: 60, urgency: '🌟 Лучшая цена!', icon: 'star', iconColor: 'icon-xmas-gold', emoji: '🌟',
                     includes: ['Моментальная доставка', 'Без банов аккаунта', 'Гарантия зачисления', 'Поддержка 24/7']
                 }
             ]
@@ -1707,8 +1884,9 @@
         function renderProducts() {
             const container = document.getElementById('productsContainer');
             container.innerHTML = products[currentTab].map(p => `
-                <div class="product-card" data-id="${p.id}">
-                    ${p.urgency ? `<div class="urgency-badge"><ion-icon name="time"></ion-icon>${p.urgency}</div>` : ''}
+                <div class="product-card xmas-card" data-id="${p.id}">
+                    <div class="xmas-corner-decor"></div>
+                    ${p.urgency ? `<div class="urgency-badge xmas-urgency">${p.urgency}</div>` : ''}
                     <div class="product-icon ${p.iconColor}">
                         <ion-icon name="${p.icon}"></ion-icon>
                     </div>
@@ -1717,25 +1895,25 @@
                         <div class="product-pricing">
                             <div>
                                 <span class="old-price">${p.oldPrice}₽</span>
-                                <span class="discount-badge">-${p.discount}%</span>
+                                <span class="discount-badge xmas-discount">-${p.discount}%</span>
                             </div>
                             <div class="current-price">${p.price}₽</div>
                         </div>
                     </div>
                     <div class="product-desc">${p.desc}</div>
                     ${p.includes ? `
-                        <div class="includes-box">
-                            <div class="includes-title"><ion-icon name="gift"></ion-icon> Что входит в цену:</div>
+                        <div class="includes-box xmas-includes">
+                            <div class="includes-title"><ion-icon name="gift"></ion-icon> 🎁 Что входит в цену:</div>
                             <div class="includes-list">
                                 ${p.includes.map(i => `<div class="includes-item"><ion-icon name="checkmark-circle"></ion-icon>${i}</div>`).join('')}
                             </div>
                         </div>
                     ` : ''}
-                    <button class="buy-btn" data-id="${p.id}">
-                        <ion-icon name="cart"></ion-icon>
-                        Купить сейчас
+                    <button class="buy-btn xmas-btn" data-id="${p.id}">
+                        <ion-icon name="gift"></ion-icon>
+                        🎄 Купить сейчас
                     </button>
-                    ${p.version ? `<div class="version-info">${p.version}</div>` : ''}
+                    ${p.version ? `<div class="version-info">❄️ ${p.version}</div>` : ''}
                 </div>
             `).join('');
 

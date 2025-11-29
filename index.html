@@ -11,21 +11,23 @@
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
         :root {
-            --bg-primary: #0a1628;
-            --bg-secondary: #0f1f3a;
-            --bg-card: rgba(255, 255, 255, 0.04);
-            --text-primary: #e8f4ff;
-            --text-secondary: #8ba3c7;
-            --border-color: rgba(150, 200, 255, 0.1);
-            --accent-blue: #5b9cf5;
-            --accent-cyan: #7dd3fc;
-            --accent-gold: #fcd34d;
-            --gradient-main: linear-gradient(135deg, #5b9cf5, #7dd3fc);
-            --gradient-frost: linear-gradient(135deg, rgba(91, 156, 245, 0.15), rgba(125, 211, 252, 0.1));
-            --shadow-glow: 0 0 30px rgba(91, 156, 245, 0.2);
-            --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.3);
+            --bg-primary: #020617;
+            --bg-secondary: #0f172a;
+            --bg-card: rgba(255, 255, 255, 0.03);
+            --bg-card-hover: rgba(255, 255, 255, 0.06);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --accent-blue: #3b82f6;
+            --accent-cyan: #06b6d4;
+            --accent-gold: #f59e0b;
+            --gradient-main: linear-gradient(135deg, #3b82f6, #06b6d4);
+            --gradient-frost: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(6, 182, 212, 0.05));
+            --shadow-glow: 0 0 40px rgba(59, 130, 246, 0.15);
+            --shadow-card: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.15);
             --radius: 16px;
             --radius-lg: 24px;
+            --font-sans: 'Inter', system-ui, sans-serif;
         }
 
         * {
@@ -40,7 +42,7 @@
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: var(--font-sans);
             background: var(--bg-primary);
             color: var(--text-primary);
             min-height: 100vh;
@@ -201,16 +203,16 @@
             text-align: center;
             padding: 32px 24px;
             background: var(--gradient-frost);
-            border: 1px solid rgba(150, 200, 255, 0.2);
+            border: 1px solid var(--border-color);
             border-radius: var(--radius-lg);
             margin-bottom: 20px;
             position: relative;
             overflow: hidden;
-            backdrop-filter: blur(16px);
+            backdrop-filter: blur(20px);
             box-shadow: 
                 var(--shadow-card), 
-                inset 0 1px 0 rgba(255,255,255,0.15),
-                0 0 60px rgba(91, 156, 245, 0.15);
+                inset 0 1px 0 rgba(255,255,255,0.1),
+                0 0 60px rgba(59, 130, 246, 0.1);
             animation: headerGlow 4s ease-in-out infinite;
         }
 
@@ -588,11 +590,11 @@
             min-width: 280px;
             max-width: 280px;
             background: var(--bg-card);
-            border: 1px solid rgba(150, 200, 255, 0.1);
+            border: 1px solid var(--border-color);
             border-radius: var(--radius);
             padding: 18px;
             scroll-snap-align: start;
-            backdrop-filter: blur(12px);
+            backdrop-filter: blur(20px);
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
@@ -616,8 +618,9 @@
 
         .review-card:hover {
             transform: translateY(-6px) scale(1.02);
-            border-color: rgba(91, 156, 245, 0.3);
-            box-shadow: 0 0 30px rgba(91, 156, 245, 0.2), 0 15px 40px rgba(0,0,0,0.2);
+            border-color: var(--accent-blue);
+            background: var(--bg-card-hover);
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5);
         }
 
         .review-header {
@@ -665,13 +668,14 @@
 
         .product-card {
             background: var(--bg-card);
-            border: 1px solid rgba(150, 200, 255, 0.1);
+            border: 1px solid var(--border-color);
             border-radius: var(--radius-lg);
             padding: 24px;
-            backdrop-filter: blur(16px);
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(20px);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
+            box-shadow: var(--shadow-card);
         }
 
         /* Frost effect on cards */
@@ -682,9 +686,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: 
-                radial-gradient(ellipse at 0% 0%, rgba(200, 230, 255, 0.08) 0%, transparent 40%),
-                radial-gradient(ellipse at 100% 100%, rgba(200, 230, 255, 0.05) 0%, transparent 40%);
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, transparent 100%);
             pointer-events: none;
             z-index: 0;
             opacity: 0;
@@ -701,21 +703,16 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--accent-blue), var(--accent-cyan), var(--accent-gold));
-            transform: scaleX(0);
-            transition: transform 0.5s ease;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent-blue), transparent);
+            opacity: 0.5;
         }
 
-        .product-card:hover::before { transform: scaleX(1); }
-
         .product-card:hover {
-            transform: translateY(-8px) scale(1.01);
-            border-color: rgba(91, 156, 245, 0.4);
-            box-shadow: 
-                0 0 50px rgba(91, 156, 245, 0.2),
-                0 20px 50px rgba(0, 0, 0, 0.3),
-                inset 0 1px 0 rgba(255,255,255,0.1);
+            transform: translateY(-4px);
+            border-color: rgba(59, 130, 246, 0.3);
+            background: var(--bg-card-hover);
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5);
         }
 
         .urgency-badge {
@@ -1175,11 +1172,11 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, var(--accent-blue), var(--accent-cyan), var(--accent-gold), var(--accent-cyan), var(--accent-blue));
-            background-size: 200% 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
             border-radius: var(--radius-lg) var(--radius-lg) 0 0;
-            animation: gradientMove 3s linear infinite;
+            opacity: 0.7;
         }
 
         @keyframes gradientMove {
@@ -1570,7 +1567,7 @@
     <!-- Ice particles -->
     <div id="iceParticles"></div>
 
-    <div class="container"></div>
+    <div class="container">
         <!-- Header -->
         <header>
             <div class="garland">
@@ -1911,9 +1908,9 @@
                     ` : ''}
                     <button class="buy-btn xmas-btn" data-id="${p.id}">
                         <ion-icon name="gift"></ion-icon>
-                        🎄 Купить сейчас
+                        Купить сейчас
                     </button>
-                    ${p.version ? `<div class="version-info">❄️ ${p.version}</div>` : ''}
+                    ${p.version ? `<div class="version-info"> ${p.version}</div>` : ''}
                 </div>
             `).join('');
 
